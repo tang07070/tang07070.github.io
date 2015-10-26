@@ -34,7 +34,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="ios,xcode," />
 
 
 
@@ -43,19 +43,19 @@
   <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2" />
 
 
-<meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+<meta name="description" content="记录一下xcode经常会用到的一些配置信息
+使用svn号作为build号在Build Phase—Run Srcipt添加以下脚本123REV=`svnversion -nc | /usr/bin/sed -e &apos;s/^[^:]*://;s/[A-Za-z]//&apos;`BASEVERNUM=`/usr/libexec/PlistBuddy -c &quot;Print :CFBundleShortVersion">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://tang07070.com/2015/10/24/hello-world/index.html">
+<meta property="og:title" content="xcode一些配置记录">
+<meta property="og:url" content="http://tang07070.com/2015/10/26/xcode-config-bak/index.html">
 <meta property="og:site_name" content="tang07070's blog">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
-<meta property="og:updated_time" content="2015-10-24T15:33:23.000Z">
+<meta property="og:description" content="记录一下xcode经常会用到的一些配置信息
+使用svn号作为build号在Build Phase—Run Srcipt添加以下脚本123REV=`svnversion -nc | /usr/bin/sed -e &apos;s/^[^:]*://;s/[A-Za-z]//&apos;`BASEVERNUM=`/usr/libexec/PlistBuddy -c &quot;Print :CFBundleShortVersion">
+<meta property="og:updated_time" content="2015-10-26T15:06:56.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+<meta name="twitter:title" content="xcode一些配置记录">
+<meta name="twitter:description" content="记录一下xcode经常会用到的一些配置信息
+使用svn号作为build号在Build Phase—Run Srcipt添加以下脚本123REV=`svnversion -nc | /usr/bin/sed -e &apos;s/^[^:]*://;s/[A-Za-z]//&apos;`BASEVERNUM=`/usr/libexec/PlistBuddy -c &quot;Print :CFBundleShortVersion">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -67,7 +67,7 @@ Quick">
 
 
 
-  <title> Hello World | tang07070's blog </title>
+  <title> xcode一些配置记录 | tang07070's blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -130,6 +130,26 @@ Quick">
         </li>
       
         
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
         <li class="menu-item menu-item-archives">
           <a href="/archives" rel="section">
             
@@ -182,7 +202,7 @@ Quick">
             
             
               
-                Hello World
+                xcode一些配置记录
               
             
           </h1>
@@ -191,11 +211,26 @@ Quick">
         <div class="post-meta">
           <span class="post-time">
             Posted on
-            <time itemprop="dateCreated" datetime="2015-10-24T23:33:23+08:00" content="2015-10-24">
-              2015-10-24
+            <time itemprop="dateCreated" datetime="2015-10-26T22:09:59+08:00" content="2015-10-26">
+              2015-10-26
             </time>
           </span>
 
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; In
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/ios/" itemprop="url" rel="index">
+                    <span itemprop="name">ios</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
           
 
           
@@ -215,22 +250,55 @@ Quick">
       
 
       
-        <span itemprop="articleBody"><p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick_Start">Quick Start</h2><h3 id="Create_a_new_post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run_server">Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate_static_files">Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy_to_remote_sites">Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+        <span itemprop="articleBody"><p>记录一下xcode经常会用到的一些配置信息</p>
+<h2 id="使用svn号作为build号">使用svn号作为build号</h2><p>在Build Phase—Run Srcipt添加以下脚本<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">REV=`svnversion -nc | /usr/bin/sed <span class="operator">-e</span> <span class="string">'s/^[^:]*://;s/[A-Za-z]//'</span>`</span><br><span class="line">BASEVERNUM=`/usr/libexec/PlistBuddy -c <span class="string">"Print :CFBundleShortVersionString"</span> <span class="string">"<span class="variable">$&#123;INFOPLIST_FILE&#125;</span>"</span>`</span><br><span class="line">/usr/libexec/PlistBuddy -c <span class="string">"Set :CFBundleVersion <span class="variable">$REV</span>"</span> <span class="string">"<span class="variable">$&#123;INFOPLIST_FILE&#125;</span>"</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="xcode插件失效解决方案">xcode插件失效解决方案</h2><a id="more"></a>
+<h3 id="xcode版本更新后插件失效">xcode版本更新后插件失效</h3><p>每次xcode版本更新后已安装插件都会失效，是由于xcode UUID进行了修改，所以要更新所有插件支持的UUID</p>
+<ul>
+<li><p>首先使用以下命令查看当前版本UUID</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">defaults <span class="built_in">read</span> /Applications/Xcode.app/Contents/Info DVTPlugInCompatibilityUUID</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用获取的UUID更新插件配置文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find ~/Library/Application\ Support/Developer/Shared/Xcode/Plug-ins -name Info.plist -maxdepth <span class="number">3</span> | xargs -I&#123;&#125; defaults write &#123;&#125; DVTPlugInCompatibilityUUIDs -array-add 获取的UUID</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="xcode提示load_boundle时误点skip_boundle后插件被禁用">xcode提示load boundle时误点skip boundle后插件被禁用</h3><ul>
+<li><p>可以使用以下命令查看插件是否被禁用(7.1为例)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">defaults <span class="built_in">read</span> com.apple.dt.Xcode DVTPlugInManagerNonApplePlugIns-Xcode-<span class="number">7.1</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用以下命令删除这个配置，下次启动时就会重新询问了</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">defaults delete com.apple.dt.Xcode DVTPlugInManagerNonApplePlugIns-Xcode-<span class="number">7.1</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
 </span>
       
     </div>
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/ios/" rel="tag">#ios</a>
+          
+            <a href="/tags/xcode/" rel="tag">#xcode</a>
+          
+        </div>
+      
 
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/10/26/hello-world/" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
       
 
       
@@ -285,28 +353,28 @@ Quick">
 
       <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" src="/images/default_avatar.jpg" alt="tang07070" itemprop="image"/>
+          <img class="site-author-image" src="http://7xntiq.com1.z0.glb.clouddn.com/avatar.jpg" alt="tang07070" itemprop="image"/>
           <p class="site-author-name" itemprop="name">tang07070</p>
         </div>
         <p class="site-description motion-element" itemprop="description"></p>
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">1</span>
+              <span class="site-state-item-count">2</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
 
           <div class="site-state-item site-state-categories">
-            
-              <span class="site-state-item-count">0</span>
+            <a href="/categories">
+              <span class="site-state-item-count">1</span>
               <span class="site-state-item-name">categories</span>
-              
+              </a>
           </div>
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">0</span>
+              <span class="site-state-item-count">2</span>
               <span class="site-state-item-name">tags</span>
               </a>
           </div>
@@ -334,7 +402,7 @@ Quick">
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick_Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create_a_new_post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run_server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate_static_files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy_to_remote_sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用svn号作为build号"><span class="nav-number">1.</span> <span class="nav-text">使用svn号作为build号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#xcode插件失效解决方案"><span class="nav-number">2.</span> <span class="nav-text">xcode插件失效解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#xcode版本更新后插件失效"><span class="nav-number">2.1.</span> <span class="nav-text">xcode版本更新后插件失效</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#xcode提示load_boundle时误点skip_boundle后插件被禁用"><span class="nav-number">2.2.</span> <span class="nav-text">xcode提示load boundle时误点skip boundle后插件被禁用</span></a></li></ol></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
