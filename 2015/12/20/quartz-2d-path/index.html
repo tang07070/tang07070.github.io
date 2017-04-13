@@ -1,0 +1,845 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Core Graphics,Quartz," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="Quartz 2D 中的path包含一系列的形状和subpath，通过path可以绘制出各式各样的图形，对其进行描边（stroke）、填充（fill）或是裁剪（clip），也可以组合很多subpath来生成复杂的图形，总之如果想绘制自定义图形，那一定需要用到path。
+下图是一些path示例：
+
+基本元素再复杂的图形，进行拆解后其基本组成元素也不过几种，点、直线、曲线、弧线等，在Quartz 2D">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Quartz-2D 学习（二）：路径（Path）">
+<meta property="og:url" content="http://tang07070.com/2015/12/20/quartz-2d-path/index.html">
+<meta property="og:site_name" content="tang07070's blog">
+<meta property="og:description" content="Quartz 2D 中的path包含一系列的形状和subpath，通过path可以绘制出各式各样的图形，对其进行描边（stroke）、填充（fill）或是裁剪（clip），也可以组合很多subpath来生成复杂的图形，总之如果想绘制自定义图形，那一定需要用到path。
+下图是一些path示例：
+
+基本元素再复杂的图形，进行拆解后其基本组成元素也不过几种，点、直线、曲线、弧线等，在Quartz 2D">
+<meta property="og:image" content="http://tang07070.com/image/quartz-2d/path-example.png">
+<meta property="og:image" content="http://tang07070.com/image/quartz-2d/path-arc1.png">
+<meta property="og:image" content="http://tang07070.com/image/quartz-2d/path-arc2.png">
+<meta property="og:image" content="http://tang07070.com/image/quartz-2d/path-curve-2.png">
+<meta property="og:image" content="http://tang07070.com/image/quartz-2d/path-curve-3.png">
+<meta property="og:image" content="http://tang07070.com/image/quartz-2d/path-draw-1.png">
+<meta property="og:image" content="http://tang07070.com/image/quartz-2d/path-join-miter.png">
+<meta property="og:image" content="http://tang07070.com/image/quartz-2d/path-join-round.png">
+<meta property="og:image" content="http://tang07070.com/image/quartz-2d/path-join-square.png">
+<meta property="og:image" content="http://tang07070.com/image/quartz-2d/path-cap-butt.png">
+<meta property="og:image" content="http://tang07070.com/image/quartz-2d/path-cap-round.png">
+<meta property="og:image" content="http://tang07070.com/image/quartz-2d/path-cap-square.png">
+<meta property="og:image" content="http://tang07070.com/image/quartz-2d/path-fill-rule.png">
+<meta property="og:image" content="http://tang07070.com/image/quartz-2d/path-fill-winding-number-example.png">
+<meta property="og:image" content="http://tang07070.com/image/quartz-2d/path-fill-even-odd-example.png">
+<meta property="og:updated_time" content="2015-12-27T13:17:01.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Quartz-2D 学习（二）：路径（Path）">
+<meta name="twitter:description" content="Quartz 2D 中的path包含一系列的形状和subpath，通过path可以绘制出各式各样的图形，对其进行描边（stroke）、填充（fill）或是裁剪（clip），也可以组合很多subpath来生成复杂的图形，总之如果想绘制自定义图形，那一定需要用到path。
+下图是一些path示例：
+
+基本元素再复杂的图形，进行拆解后其基本组成元素也不过几种，点、直线、曲线、弧线等，在Quartz 2D">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://tang07070.com/2015/12/20/quartz-2d-path/"/>
+
+
+
+
+
+  <title> Quartz-2D 学习（二）：路径（Path） | tang07070's blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">tang07070's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://tang07070.com/2015/12/20/quartz-2d-path/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tang07070">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="tang07070's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Quartz-2D 学习（二）：路径（Path）
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-12-20T15:30:05+08:00">
+                2015-12-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Quartz-2D/" itemprop="url" rel="index">
+                    <span itemprop="name">Quartz-2D</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Quartz 2D 中的path包含一系列的形状和subpath，通过path可以绘制出各式各样的图形，对其进行描边（stroke）、填充（fill）或是裁剪（clip），也可以组合很多subpath来生成复杂的图形，总之如果想绘制自定义图形，那一定需要用到path。</p>
+<p>下图是一些path示例：</p>
+<p><img src="/image/quartz-2d/path-example.png" alt=""></p>
+<h3 id="基本元素">基本元素</h3><p>再复杂的图形，进行拆解后其基本组成元素也不过几种，点、直线、曲线、弧线等，在Quartz 2D中也是如此。</p>
+<h4 id="点（Point）">点（Point）</h4><p>Point就是一个坐标，使用<code>CGPoint</code>表示，在Quart 2D 中维护了一个current point，其作用是指定一些线性（line、arc等）操作的起始点。想要移动current point，可以使用<code>CGContextMoveToPoint</code>方法。</p>
+<h4 id="线（Line）">线（Line）</h4><p>这里的Line指的是从起点要终点的一条直线，这里的起点就是上面说的current point，所以只需要指定终点既可，添加line的方法有两种：</p>
+<ul>
+<li><code>CGContextAddLineToPoint</code>：添加一条到指定终点的line</li>
+<li><code>CGContextAddLines</code>：其参数是一个<code>CGPoint</code>数组，第一个点作为起点，其他点作为终点依次添加line</li>
+</ul>
+<h4 id="弧线（Arc）">弧线（Arc）</h4><p>Arc是指圆的一个片段，Quartz 提供了两种方式确定Arc：</p>
+<ul>
+<li>圆心和半径确定一个圆，Arc需要在圆的基础上指定起始角度和结束角度，使用<code>CGContextAddArc</code>方法，其角度如下：</li>
+</ul>
+<p><img src="/image/quartz-2d/path-arc1.png" alt=""></p>
+<ul>
+<li>三点连线可以确定一个角，Arc需要在根据半径在这个角中确定具体位置，使用<code>CGContextAddArcToPoint</code>方法，如下图，其中P1是current point，红色标识的是确定的arc：</li>
+</ul>
+<p><img src="/image/quartz-2d/path-arc2.png" alt=""></p>
+<h4 id="曲线（Curve）">曲线（Curve）</h4><p>Curve指的是贝赛尔曲线，Quartz中支持二次和三次贝塞尔曲线：</p>
+<ul>
+<li>二次贝塞尔曲线：<code>CGContextAddCurveToPoint</code></li>
+</ul>
+<p><img src="/image/quartz-2d/path-curve-2.png" alt=""></p>
+<ul>
+<li>三次贝塞尔曲线：<code>CGContextAddQuadCurveToPoint</code></li>
+</ul>
+<p><img src="/image/quartz-2d/path-curve-3.png" alt=""></p>
+<h4 id="矩形（Rectangle）">矩形（Rectangle）</h4><p>这里就是一般的矩形，添加方式和point一样有两种</p>
+<ul>
+<li><code>CGContextAddRect</code>添加一个矩形</li>
+<li><code>CGContextAddRects</code>添加一组矩形</li>
+</ul>
+<h4 id="椭圆（Ellipse）">椭圆（Ellipse）</h4><p>在这里的椭圆不需要指定焦点、中心点等，只要给定一个矩形，Quartz会以矩形中心点为圆心，使用贝赛尔曲线绘制出一个椭圆，该方法为<code>CGContextAddEllipseInRect</code>。</p>
+<h3 id="使用Path">使用Path</h3><p>了解了Path的几种基本元素之后，下面我们看看如何创建、绘制以及裁剪Path。</p>
+<h4 id="创建Path">创建Path</h4><p>使用<code>CGContextBeiginPath</code>方法可以开启一个新的Path过程，特别注意的是这时current point还是空的，调用任何绘制方法都是无效的，所以在开始新的path后，需要立即使用<code>CGContextMoveToPoint</code>方法指定current point，随后便可以开始任意的添加元素了。</p>
+<p>当绘制结束后可以使用<code>CGContextClosePath</code>方法关闭当前path，这是会自动添加一条从current point到path起点的line，形成闭合的回路，随后会开启新的subpath，这时如果不手动指定current point的话，subpath会使用上一个subpath的终点作为其current point。</p>
+<p>当调用绘制函数后，Quartz会根据当前Path完成相应的绘制，并且在绘制完成后使当前Path<strong>无效</strong>，如果需要新增Path就需要再次调用<code>CGContextBeiginPath</code>方法开启新的Path。</p>
+<p>可能会有这样的场景：需要把Path当成一个变量保存起来已备后续使用，这时可以使用<code>CGPathRef</code>或<code>CGMutablePathRef</code>对象，步骤如下：</p>
+<ol>
+<li>使用<code>CGPathCreateMutable</code>创建<code>CGMutablePathRef</code>对象</li>
+<li>使用<code>CGPathMoveToPoint</code>添加current point</li>
+<li>使用<code>CGPathXXX</code>系列方法添加元素，如<code>CGPathAddArcToPoint</code></li>
+<li>使用<code>CGPathCloseSubpath</code>关闭path（可选）</li>
+<li>使用<code>CGContextAddPath</code>将<code>CGMutablePathRef</code>对象添加到context中</li>
+<li>使用<code>CGContextDrawPath</code>绘制path</li>
+</ol>
+<p>同样在绘制之后添加的Path会失效，但是创建的<code>CGMutablePathRef</code>对象可以继续使用。</p>
+<h4 id="绘制Path">绘制Path</h4><p>当创建Path并添加完元素后就可以进行绘制了，绘制Path有两种方式，描边（stroke）和填充（fill），可以选择其中之一或者都选择，如下图所示，其中红色部分是描边，蓝色部分是填充。</p>
+<p><img src="/image/quartz-2d/path-draw-1.png" alt=""></p>
+<h5 id="描边（Stroke）">描边（Stroke）</h5><p>Quartz提供了很多方法可以进行stroke操作，如<code>CGContextStrokePath</code> <code>CGContextDrawPath</code>等，下面主要介绍一下stroke相关属性。</p>
+<ul>
+<li>线宽（Width）：设置线宽的方法为<code>CGContextSetLineWidth</code>，需要注意的是线宽会从中心点向两边增长，举个例子：如果中心点为0，当设置线宽为5时，那么线所占的宽度为[-2, 2]。</li>
+<li>连接点（Join）：设置连接点的方法为<code>CGContextSetLineJoin</code>，Quartz提供了三种方式<ul>
+<li>Miter（default）：<img src="/image/quartz-2d/path-join-miter.png" alt=""></li>
+<li>Round： <img src="/image/quartz-2d/path-join-round.png" alt=""></li>
+<li>Square： <img src="/image/quartz-2d/path-join-square.png" alt=""></li>
+</ul>
+</li>
+<li>端点（Cap）：设置端点的方法为<code>CGContextSetLineCap</code>，Quartz也提供了三种方式<ul>
+<li>Butt（default）：<img src="/image/quartz-2d/path-cap-butt.png" alt=""></li>
+<li>Round：<img src="/image/quartz-2d/path-cap-round.png" alt=""></li>
+<li>Square：<img src="/image/quartz-2d/path-cap-square.png" alt=""></li>
+</ul>
+</li>
+<li>虚线模式（Dash Pattern）：设置虚线模式的方法为<code>CGContextSetLineDash</code>，其中length数组是指[线-空]的长度，比如”— –  “，这种虚线的length数组为{3，1，2，2}</li>
+<li>颜色（Color）：设置stroke颜色的方法为<code>CGContextSetStrokeColor</code>和<code>CGContextSetStrokeColorWithColor</code></li>
+<li>模式（Pattern）：设置stroke模式的方法为<code>CGContextSetStrokePattern</code>，Pattern相关的内容会在后面写</li>
+</ul>
+<h5 id="填充（Fill）">填充（Fill）</h5><p>Quartz提供的Fill Path方法为<code>CGContextFillPath</code>，<code>CGContextEOFillPath</code>等，那带”EO”的和不带”EO”的版本有什么区别呢？当有多个SubPath有重叠部分的时候，Quartz有两种填充规则（fill rule），在此之前需要知道的是Path是有方向的，跟元素的添加顺序有关，默认为顺时针方向</p>
+<ul>
+<li>nonzero winding number rule：内外同向时填充外部和内部，内外反向时只填充外部</li>
+<li>even-odd rule：不管内外同向或内外反向，都只填充外部</li>
+</ul>
+<p>示意图如下：</p>
+<p><img src="/image/quartz-2d/path-fill-rule.png" alt=""></p>
+<p>举个例子，使用如下代码创建Path：</p>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">CGContextBeginPath(ctx);</span><br><span class="line">CGContextAddRect(ctx, <span class="built_in">rect</span>);</span><br><span class="line">CGContextClosePath(ctx);</span><br><span class="line">CGPoint lines[] = &#123;&#123;<span class="built_in">rect</span>.<span class="built_in">size</span>.<span class="variable">width</span>/<span class="number">2</span>, <span class="number">40</span>&#125;, &#123;<span class="built_in">rect</span>.<span class="built_in">size</span>.<span class="variable">width</span> - <span class="number">40</span>, <span class="built_in">rect</span>.<span class="built_in">size</span>.<span class="variable">height</span> - <span class="number">40</span>&#125;, &#123;<span class="number">40</span>, <span class="built_in">rect</span>.<span class="built_in">size</span>.<span class="variable">height</span> - <span class="number">40</span>&#125;&#125;;</span><br><span class="line">CGContextAddLines(ctx, lines, <span class="number">3</span>);</span><br><span class="line">CGContextClosePath(ctx);</span><br></pre></td></tr></table></figure>
+<p>这里的Rect是默认方向的，也就是顺时针方向，三角形按照添加顺序，也是顺时针方向，下面我们使用两种规则分别绘制：</p>
+<ul>
+<li>使用<code>CGContextDrawPath(ctx, kCGPathFillStroke)</code>绘制：<br><img src="/image/quartz-2d/path-fill-winding-number-example.png" alt=""></li>
+<li>使用<code>CGContextDrawPath(ctx, kCGPathEOFillStroke)</code>绘制：<br><img src="/image/quartz-2d/path-fill-even-odd-example.png" alt=""></li>
+</ul>
+<h5 id="混合模式（Blend_Mode）">混合模式（Blend Mode）</h5><p>混合模式是指Quartz如何处理前景和背景叠加的问题，对此有如下公式：</p>
+<blockquote>
+<p>result = (alpha <em> foreground) + (1 - alpha) </em> background</p>
+</blockquote>
+<p>更多的混合模式举例可参见<a href="http://openlayers.org/en/v3.9.0/examples/blend-modes.html" target="_blank" rel="external">http://openlayers.org/en/v3.9.0/examples/blend-modes.html</a></p>
+<h4 id="裁剪Path">裁剪Path</h4><p>创建Path并添加元素之后不一定非要绘制，也可以将画布裁剪为Path的形状，比较常见的用途是作为图片的mask。裁剪后的画布状态是包含在当前context state中的，也就是可以Save和Restore的，另外裁剪Path和绘制Path有很多相同之处：</p>
+<ul>
+<li>裁剪规则和绘制规则相同，也是nonzero winding number rule和even-odd rule，分别对应方法<code>CGContextClip</code>和<code>CGContextEOClip</code></li>
+<li>裁剪后context中的Path也会<strong>失效</strong></li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Core-Graphics/" rel="tag"># Core Graphics</a>
+          
+            <a href="/tags/Quartz/" rel="tag"># Quartz</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/12/17/quartz-2d-overview/" rel="next" title="Quartz-2D 学习（一）：总览">
+                <i class="fa fa-chevron-left"></i> Quartz-2D 学习（一）：总览
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/12/22/quartz-2d-transform/" rel="prev" title="Quartz-2D 学习（三）：变换（Transform）">
+                Quartz-2D 学习（三）：变换（Transform） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="tang07070" />
+          <p class="site-author-name" itemprop="name">tang07070</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本元素"><span class="nav-number">1.</span> <span class="nav-text">基本元素</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#点（Point）"><span class="nav-number">1.1.</span> <span class="nav-text">点（Point）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#线（Line）"><span class="nav-number">1.2.</span> <span class="nav-text">线（Line）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#弧线（Arc）"><span class="nav-number">1.3.</span> <span class="nav-text">弧线（Arc）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#曲线（Curve）"><span class="nav-number">1.4.</span> <span class="nav-text">曲线（Curve）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#矩形（Rectangle）"><span class="nav-number">1.5.</span> <span class="nav-text">矩形（Rectangle）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#椭圆（Ellipse）"><span class="nav-number">1.6.</span> <span class="nav-text">椭圆（Ellipse）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用Path"><span class="nav-number">2.</span> <span class="nav-text">使用Path</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建Path"><span class="nav-number">2.1.</span> <span class="nav-text">创建Path</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#绘制Path"><span class="nav-number">2.2.</span> <span class="nav-text">绘制Path</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#描边（Stroke）"><span class="nav-number">2.2.1.</span> <span class="nav-text">描边（Stroke）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#填充（Fill）"><span class="nav-number">2.2.2.</span> <span class="nav-text">填充（Fill）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#混合模式（Blend_Mode）"><span class="nav-number">2.2.3.</span> <span class="nav-text">混合模式（Blend Mode）</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#裁剪Path"><span class="nav-number">2.3.</span> <span class="nav-text">裁剪Path</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-year"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">tang07070</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

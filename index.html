@@ -1,11 +1,14 @@
 <!doctype html>
-<html class="theme-next use-motion ">
-<head>
-  
 
-<meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
 
 
 <meta http-equiv="Cache-Control" content="no-transform" />
@@ -18,29 +21,68 @@
 
 
 
-  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+
+
 
 
 
   
-    <link href='//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
-<link rel="stylesheet" type="text/css" href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" />
-
-<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5.2"/>
 
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="tang07070" />
 
 
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2" />
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
 
 
 <meta name="description">
@@ -54,29 +96,42 @@
 <meta name="twitter:description">
 
 
-<script type="text/javascript" id="hexo.configuration">
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
   var CONFIG = {
-    scheme: '',
-    sidebar: 'post'
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
   };
 </script>
+
+
+
+  <link rel="canonical" href="http://tang07070.com/"/>
+
+
 
 
 
   <title> tang07070's blog </title>
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
-  <!--[if lte IE 8]>
-  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
-    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
-      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
-           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
-           style='margin-left:auto;margin-right:auto;display: block;'/>
-    </a>
-  </div>
-<![endif]-->
   
 
 
@@ -84,66 +139,63 @@
 
 
 
-  <div class="container one-column 
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left 
    page-home 
-">
+ ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-meta ">
-  
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
 
-  <div class="custom-logo-site-title">
-    <a href="/"  class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <span class="site-title">tang07070's blog</span>
-      <span class="logo-line-after"><i></i></span>
-    </a>
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">tang07070's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
   </div>
-  <p class="site-subtitle"></p>
-</div>
 
-<div class="site-nav-toggle">
-  <button>
-    <span class="btn-bar"></span>
-    <span class="btn-bar"></span>
-    <span class="btn-bar"></span>
-  </button>
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
 </div>
 
 <nav class="site-nav">
   
 
   
-    <ul id="menu" class="menu ">
+    <ul id="menu" class="menu">
       
         
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
-              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Home
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-categories">
-          <a href="/categories" rel="section">
-            
-              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
-            
-            Categories
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-about">
-          <a href="/about" rel="section">
-            
-              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
-            
-            About
+            首页
           </a>
         </li>
       
@@ -151,9 +203,19 @@
         <li class="menu-item menu-item-archives">
           <a href="/archives" rel="section">
             
-              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archives
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
           </a>
         </li>
       
@@ -161,14 +223,13 @@
         <li class="menu-item menu-item-tags">
           <a href="/tags" rel="section">
             
-              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
             
-            Tags
+            标签
           </a>
         </li>
       
 
-      
       
     </ul>
   
@@ -176,20 +237,38 @@
   
 </nav>
 
+
+
  </div>
     </header>
 
     <main id="main" class="main">
       <div class="main-inner">
-        <div id="content" class="content"> 
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
   <section id="posts" class="posts-expand">
     
       
 
   
+
+  
+  
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://tang07070.com/2016/01/07/quartz-2d-gradient/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tang07070">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="tang07070's blog">
+    </span>
 
     
       <header class="post-header">
@@ -200,8 +279,9 @@
             
             
               
-                <a class="post-title-link" href="/2015/10/26/xcode-config-bak/" itemprop="url">
-                  xcode一些配置记录
+                
+                <a class="post-title-link" href="/2016/01/07/quartz-2d-gradient/" itemprop="url">
+                  Quartz-2D 学习（五）：渐变（Gradient）
                 </a>
               
             
@@ -210,25 +290,43 @@
 
         <div class="post-meta">
           <span class="post-time">
-            Posted on
-            <time itemprop="dateCreated" datetime="2015-10-26T22:09:59+08:00" content="2015-10-26">
-              2015-10-26
-            </time>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-01-07T23:30:10+08:00">
+                2016-01-07
+              </time>
+            
+
+            
+
+            
           </span>
 
           
             <span class="post-category" >
-              &nbsp; | &nbsp; In
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
               
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/ios/" itemprop="url" rel="index">
-                    <span itemprop="name">ios</span>
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Quartz-2D/" itemprop="url" rel="index">
+                    <span itemprop="name">Quartz-2D</span>
                   </a>
                 </span>
 
                 
                 
-
               
             </span>
           
@@ -238,32 +336,66 @@
           
 
           
+          
+
+          
+
+          
+
+          
 
         </div>
       </header>
     
 
 
-    <div class="post-body">
+    <div class="post-body" itemprop="articleBody">
 
       
       
 
       
         
-          <p>记录一下xcode经常会用到的一些配置信息</p>
-<h2 id="使用svn号作为build号">使用svn号作为build号</h2><p>在Build Phase—Run Srcipt添加以下脚本<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">REV=`svnversion -nc | /usr/bin/sed <span class="operator">-e</span> <span class="string">'s/^[^:]*://;s/[A-Za-z]//'</span>`</span><br><span class="line">BASEVERNUM=`/usr/libexec/PlistBuddy -c <span class="string">"Print :CFBundleShortVersionString"</span> <span class="string">"<span class="variable">$&#123;INFOPLIST_FILE&#125;</span>"</span>`</span><br><span class="line">/usr/libexec/PlistBuddy -c <span class="string">"Set :CFBundleVersion <span class="variable">$REV</span>"</span> <span class="string">"<span class="variable">$&#123;INFOPLIST_FILE&#125;</span>"</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="xcode插件失效解决方案">xcode插件失效解决方案</h2>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/10/26/xcode-config-bak/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
+          
+            <p>这里的渐变是指颜色渐变，Quartz 2D提供了两种渐变方式，轴向渐变和径向渐变</p>
+<h3 id="轴向渐变（Axial_Gradient）">轴向渐变（Axial Gradient）</h3><p>轴向渐变也叫线性渐变，是指对于从渐变起点到渐变终点的连线，所有垂直于该连线的线，具有不变的颜色值，可以参考下面的图示：</p>
+<p><img src="/image/quartz-2d/gradient-axial-1.png" alt=""></p>
+<p>其中lx和ly便是垂直于轴线的线，其颜色是不变的，Cora Animation中的<code>CAGradientLayer</code>实现的就是轴向渐变，或者说是封装了Quartz 2D的轴向渐变方法，提供了面向对象的实现。</p>
+<p>为了创建一个轴向渐变效果，需要指定起点、终点以及各个关键点的位置和颜色，比如要实现下图的效果：</p>
+<p><img src="/image/quartz-2d/gradient-axial-2.png" alt=""></p>
+<p>其代码如下：</p>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> drawAxialGradient(CGContextRef ctx, CGRect <span class="built_in">rect</span>) &#123;</span><br><span class="line">    CGGradientRef gradient;</span><br><span class="line">    CGColorSpaceRef colorSpace;</span><br><span class="line">    </span><br><span class="line">    CGFloat location[] = &#123;<span class="number">0.0</span>, <span class="number">1.0</span>&#125;;</span><br><span class="line">    CGFloat components[] = &#123;<span class="number">1.0</span>, <span class="number">0.2</span>, <span class="number">0.2</span>, <span class="number">1.0</span>,</span><br><span class="line">                            <span class="number">0.2</span>, <span class="number">0.5</span>, <span class="number">0.9</span>, <span class="number">1.0</span>&#125;;</span><br><span class="line">    </span><br><span class="line">    colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);</span><br><span class="line">    gradient = CGGradientCreateWithColorComponents(colorSpace, components, location, <span class="number">2</span>);</span><br><span class="line">    CGColorSpaceRelease(colorSpace);</span><br><span class="line">    </span><br><span class="line">    CGContextBeginPath(ctx);</span><br><span class="line">    CGPoint lines[] = &#123;&#123;<span class="built_in">rect</span>.<span class="built_in">size</span>.<span class="variable">width</span>/<span class="number">2</span>, <span class="number">0</span>&#125;, &#123;<span class="built_in">rect</span>.<span class="built_in">size</span>.<span class="variable">width</span>, <span class="built_in">rect</span>.<span class="built_in">size</span>.<span class="variable">height</span>&#125;, &#123;<span class="number">0</span>, <span class="built_in">rect</span>.<span class="built_in">size</span>.<span class="variable">height</span>&#125;&#125;;</span><br><span class="line">    CGContextAddLines(ctx, lines, <span class="number">3</span>);</span><br><span class="line">    CGContextClosePath(ctx);</span><br><span class="line">    CGContextClip(ctx);</span><br><span class="line">    </span><br><span class="line">    CGPoint startPt = &#123;<span class="built_in">rect</span>.<span class="built_in">size</span>.<span class="variable">width</span>/<span class="number">2</span>, <span class="number">0</span>&#125;;</span><br><span class="line">    CGPoint endPt = &#123;<span class="built_in">rect</span>.<span class="built_in">size</span>.<span class="variable">width</span>/<span class="number">2</span>, <span class="built_in">rect</span>.<span class="built_in">size</span>.<span class="variable">height</span>&#125;;</span><br><span class="line">    CGContextDrawLinearGradient(ctx, gradient, startPt, endPt, <span class="number">0</span>);</span><br><span class="line">    CGGradientRelease(gradient);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里指定的起点是三角形的顶点，终点是三角形的底边中间点，因为起点和终点的连线是垂直的，根据轴向渐变的特性，故三角形每条水平线的颜色都是不变的；指定的关键点有两个，0.0和1.0，因为是按照百分比指定的，所以也就是起点和终点的位置，颜色分别是RGBA的<code>1.0, 0.2, 0.2, 1.0</code>和<code>0.2, 0.5, 0.9, 1.0</code></p>
+<p>对于绘制过程，首先使用<code>CGGradientCreateWithColorComponents</code>方法根据关键点信息创建<code>CGGradientRef</code>对象，然后裁剪出三角形Path，最后使用<code>CGContextDrawLinearGradient</code>方法绘制轴向渐变</p>
+<h3 id="径向渐变（Radial_Gradient）">径向渐变（Radial Gradient）</h3><p>径向渐变也是两个端点连线的轴向渐变，不过两个端点不再只是一个像素点，而是一个圆，例如下图渐变效果：</p>
+<p><img src="/image/quartz-2d/gradient-radial-1.png" alt=""></p>
+<p>其代码如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">drawRadialGradient</span><span class="params">(CGContextRef ctx, CGRect rect)</span> </span>&#123;</span><br><span class="line">    CGGradientRef gradient;</span><br><span class="line">    CGColorSpaceRef colorSpace;</span><br><span class="line">    </span><br><span class="line">    CGFloat location[] = &#123;<span class="number">0.0</span>, <span class="number">1.0</span>&#125;;</span><br><span class="line">    CGFloat components[] = &#123;<span class="number">1.0</span>, <span class="number">0.2</span>, <span class="number">0.2</span>, <span class="number">1.0</span>,</span><br><span class="line">        <span class="number">0.2</span>, <span class="number">0.5</span>, <span class="number">0.9</span>, <span class="number">1.0</span>&#125;;</span><br><span class="line">    </span><br><span class="line">    colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);</span><br><span class="line">    gradient = CGGradientCreateWithColorComponents(colorSpace, components, location, <span class="number">2</span>);</span><br><span class="line">    CGColorSpaceRelease(colorSpace);</span><br><span class="line">    </span><br><span class="line">    CGPoint startPt = &#123;<span class="number">30</span>, <span class="number">30</span>&#125;;</span><br><span class="line">    CGPoint endPt = &#123;rect.size.width/<span class="number">2</span>, rect.size.height/<span class="number">2</span>&#125;;</span><br><span class="line">    CGContextDrawRadialGradient(ctx, gradient, startPt, <span class="number">20</span>, endPt, <span class="number">50</span>, <span class="number">0</span>);</span><br><span class="line">    CGGradientRelease(gradient);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>和轴向渐变相比，<code>CGGradientRef</code>对象的创建是完全相同的，只是使用<code>CGContextDrawRadialGradient</code>方法并指定端点半径</p>
+<p>径向渐变比较常见的使用场景可能就是同心圆渐变，如下图效果：</p>
+<p><img src="/image/quartz-2d/gradient-radial-2.png" alt=""></p>
+<p>实现起来也很简单，起点和终点坐标相同，并且起点半径设置为0即可</p>
+
+          
         
       
     </div>
 
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
     <footer class="post-footer">
+      
+
       
 
       
@@ -280,9 +412,23 @@
       
 
   
+
+  
+  
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://tang07070.com/2015/12/27/quartz-2d-pattern/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tang07070">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="tang07070's blog">
+    </span>
 
     
       <header class="post-header">
@@ -293,8 +439,9 @@
             
             
               
-                <a class="post-title-link" href="/2015/10/26/hello-world/" itemprop="url">
-                  Hello World
+                
+                <a class="post-title-link" href="/2015/12/27/quartz-2d-pattern/" itemprop="url">
+                  Quartz-2D 学习（四）：模式（Pattern）
                 </a>
               
             
@@ -303,16 +450,56 @@
 
         <div class="post-meta">
           <span class="post-time">
-            Posted on
-            <time itemprop="dateCreated" datetime="2015-10-26T22:02:33+08:00" content="2015-10-26">
-              2015-10-26
-            </time>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-12-27T21:17:20+08:00">
+                2015-12-27
+              </time>
+            
+
+            
+
+            
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Quartz-2D/" itemprop="url" rel="index">
+                    <span itemprop="name">Quartz-2D</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
             
+          
+
+          
+          
+
+          
+
           
 
           
@@ -322,16 +509,1370 @@
     
 
 
-    <div class="post-body">
+    <div class="post-body" itemprop="articleBody">
 
       
       
 
       
         
-          <span itemprop="articleBody">
+          
+            <p>模式是指绘制到Graphics Context上的重复绘制操作，可以把模式当做一种特殊的”颜色”，就像使用颜色一样使用模式，如Stroke和Fill。既然是重复性操作，那么肯定会有最小的模式单元，通过对其有规则的排列来组成整个模式序列，下面就来看下模式单元。</p>
+<h3 id="模式单元（Pattern_Cell）">模式单元（Pattern Cell）</h3><p>模式单元是一个矩形，如下图：</p>
+<p><img src="/image/quartz-2d/pattern-cell-single.png" alt=""></p>
+<p>其中只有一个蓝色的三角形，黑色的边框如果不明确绘制的话是不会被自动添加的，Quartz为我们提供了一个回调函数来绘制模式单元，其定义如下：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">void</span> (*<span class="built_in">CGPatternDrawPatternCallback</span>)(<span class="keyword">void</span> * __nullable info,</span><br><span class="line">                                             <span class="built_in">CGContextRef</span> __nullable context);</span><br></pre></td></tr></table></figure>
+<p>第一个参数<code>info</code>是用来进行信息传递的，第二个参数<code>context</code>便是当前绘制的上下文，其中的绘制操作和平时绘制无异（模板模式时有点区别，后面会说到），比如对上图的绘制代码如下：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> patternCellCallback(<span class="keyword">void</span> *info, <span class="built_in">CGContextRef</span> ctx) &#123;</span><br><span class="line">    <span class="built_in">CGSize</span> sz = &#123;H_PSIZE, V_PSIZE&#125;;</span><br><span class="line">    <span class="built_in">CGPoint</span> lines[] = &#123;&#123;sz<span class="variable">.width</span>/<span class="number">2</span>, sz<span class="variable">.height</span>/<span class="number">2</span>&#125;, &#123;<span class="number">0</span>, sz<span class="variable">.height</span>&#125;, &#123;sz<span class="variable">.width</span>, sz<span class="variable">.height</span>&#125;&#125;;</span><br><span class="line">    <span class="built_in">CGContextBeginPath</span>(ctx);</span><br><span class="line">    <span class="built_in">CGContextAddLines</span>(ctx, lines, <span class="number">3</span>);</span><br><span class="line">    <span class="built_in">CGContextSetFillColorWithColor</span>(ctx, [<span class="built_in">UIColor</span> blueColor]<span class="variable">.CGColor</span>);</span><br><span class="line">    <span class="built_in">CGContextClosePath</span>(ctx);</span><br><span class="line">    <span class="built_in">CGContextFillPath</span>(ctx);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>除了对模式单元的绘制外，Quartz还允许我们进行自定义的便是模式单元之前的横纵间距，下图是多个模式单元的组合：</p>
+<p><img src="/image/quartz-2d/pattern-cell-multi.png" alt=""></p>
+<p>当然，w和h都可以是0的，但是一旦指定了大小就不能再改变了。</p>
+<h3 id="两种模式">两种模式</h3><p>Quartz为我们提供了两种类型的模式可供使用：着色模式（Colored Pattern）和模板模式（Stencil Pattern）。他们有各自的适用场景，但并不是只能二者取其一，任何一种都是可以满足所有需求的，只是一个会比另一个方便一些。</p>
+<p>模式使用<code>CGPatternRef</code>封装，其创建方法为:</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">CG_EXTERN</span> <span class="built_in">CGPatternRef</span> __nullable <span class="built_in">CGPatternCreate</span>(<span class="keyword">void</span> * __nullable info,</span><br><span class="line">    <span class="built_in">CGRect</span> bounds, <span class="built_in">CGAffineTransform</span> matrix, <span class="built_in">CGFloat</span> xStep, <span class="built_in">CGFloat</span> yStep,</span><br><span class="line">    <span class="built_in">CGPatternTiling</span> tiling, <span class="keyword">bool</span> isColored,</span><br><span class="line">    <span class="keyword">const</span> <span class="built_in">CGPatternCallbacks</span> * __nullable callbacks)</span><br><span class="line">    <span class="built_in">CG_AVAILABLE_STARTING</span>(__MAC_10_0, __IPHONE_2_0);</span><br></pre></td></tr></table></figure>
+<p>其参数如下：</p>
+<ul>
+<li>info：传递给模式单元回掉函数的自定义数据</li>
+<li>bounds：模式单元大小</li>
+<li>matrix：模式单元使用的仿射变换矩阵，如果不需要变化可以使用<code>CGAffineTransformIdentity</code></li>
+<li>xStep：x轴步长，包括单元长+间隔</li>
+<li>yStep：y轴步长，同上</li>
+<li>tiling：平铺模式，有如下几种，其失真程度递增：<ul>
+<li>kCGPatternTilingNoDistortion：</li>
+<li>kCGPatternTilingConstantSpacingMinimalDistortion：</li>
+<li>kCGPatternTilingConstantSpacing： </li>
+</ul>
+</li>
+<li>isClored：是否是着色模式</li>
+<li>callbacks：模式单元绘制回调</li>
+</ul>
+<h4 id="着色模式">着色模式</h4><p>前面的例子便是着色模式，其重点是在模式单元的回调函数中绘制带有颜色的图形，也就是把颜色相关的逻辑放到回调函数中，在外部使用时便可不关注模式单元的颜色了，下面是创建并使用着色模式的代码：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> drawColoredPattern(<span class="built_in">CGContextRef</span> ctx, <span class="built_in">CGRect</span> rect) &#123;</span><br><span class="line">    <span class="built_in">CGPatternRef</span> pattern;</span><br><span class="line">    <span class="built_in">CGColorSpaceRef</span> patternSpace;</span><br><span class="line">    <span class="built_in">CGFloat</span> alpha = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">const</span> <span class="built_in">CGPatternCallbacks</span> callbacks = &#123;<span class="number">0</span>, &amp;coloredPatternCb, <span class="literal">NULL</span>&#125;;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">CGContextSaveGState</span>(ctx);</span><br><span class="line">    patternSpace = <span class="built_in">CGColorSpaceCreatePattern</span>(<span class="literal">NULL</span>);</span><br><span class="line">    <span class="built_in">CGContextSetFillColorSpace</span>(ctx, patternSpace);</span><br><span class="line"><span class="comment">//    CGContextSetStrokeColorSpace(ctx, patternSpace);</span></span><br><span class="line">    <span class="built_in">CGColorSpaceRelease</span>(patternSpace);</span><br><span class="line">    </span><br><span class="line">    pattern = <span class="built_in">CGPatternCreate</span>(<span class="literal">NULL</span>,</span><br><span class="line">                              <span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, H_PSIZE, V_PSIZE),</span><br><span class="line">                              <span class="built_in">CGAffineTransformIdentity</span>,</span><br><span class="line">                              H_PSIZE+<span class="number">3</span>, V_PSIZE+<span class="number">3</span>,</span><br><span class="line">                              k<span class="built_in">CGPatternTilingNoDistortion</span>,</span><br><span class="line">                              <span class="literal">true</span>,</span><br><span class="line">                              &amp;callbacks);</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">CGContextSetFillPattern</span>(ctx, pattern, &amp;alpha);</span><br><span class="line"><span class="comment">//    CGContextSetStrokePattern(ctx, pattern, &amp;alpha);</span></span><br><span class="line">    <span class="built_in">CGPatternRelease</span>(pattern);</span><br><span class="line">    <span class="built_in">CGContextFillRect</span>(ctx, rect);</span><br><span class="line"><span class="comment">//    CGContextStrokeRect(ctx, rect);</span></span><br><span class="line">    <span class="built_in">CGContextRestoreGState</span>(ctx);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以上是使用模式来进行Fill操作，如若使用模式来进行Stroke操作，只需把Fill相关方法替换为Stroke相关方法（上述代码中注释部分）。</p>
+<h4 id="模板模式">模板模式</h4><p>所谓模板模式，就是提供只提供Path信息而无关颜色，当然只是在模板单元回调中忽略颜色而已，还是使用上面的三角形示例，模板模式的模式单元回调代码为：</p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">void stencilPatternCb(void *info, <span class="constant">CGContextRef</span> ctx) &#123;</span><br><span class="line">    <span class="constant">CGSize</span> sz = &#123;<span class="constant">H_PSIZE</span>, <span class="constant">V_PSIZE</span>&#125;;</span><br><span class="line">    <span class="constant">CGPoint</span> lines[] = <span class="expansion">&#123;&#123;sz.width/<span class="number">2</span>, sz.height/<span class="number">2</span>&#125;, &#123;<span class="number">0</span>, sz.height&#125;, &#123;sz.width, sz.height&#125;&#125;</span>;</span><br><span class="line">    <span class="constant">CGContextBeginPath</span>(ctx);</span><br><span class="line">    <span class="constant">CGContextAddLines</span>(ctx, lines, <span class="number">3</span>);</span><br><span class="line">    <span class="constant">CGContextClosePath</span>(ctx);</span><br><span class="line">    <span class="constant">CGContextFillPath</span>(ctx);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以注意到与着色模式的模式单元回调相比，仅仅少了设置Fill颜色的操作，但是颜色总归是要被设置的，实际上颜色信息已经包含在当前<code>ctx</code>中，创建并使用模式的代码如下：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> drawStencilPattern(<span class="built_in">CGContextRef</span> ctx, <span class="built_in">CGRect</span> rect) &#123;</span><br><span class="line">    <span class="built_in">CGPatternRef</span> pattern;</span><br><span class="line">    <span class="built_in">CGColorSpaceRef</span> baseSpace;</span><br><span class="line">    <span class="built_in">CGColorSpaceRef</span> patternSpace;</span><br><span class="line">    <span class="built_in">CGFloat</span> color[] = &#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>&#125;;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">const</span> <span class="built_in">CGPatternCallbacks</span> callbacks = &#123;<span class="number">0</span>, &amp;stencilPatternCb, <span class="literal">NULL</span>&#125;;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">CGContextSaveGState</span>(ctx);</span><br><span class="line">    baseSpace = <span class="built_in">CGColorSpaceCreateDeviceRGB</span>();</span><br><span class="line">    patternSpace = <span class="built_in">CGColorSpaceCreatePattern</span>(baseSpace);</span><br><span class="line">    <span class="built_in">CGContextSetFillColorSpace</span>(ctx, patternSpace);</span><br><span class="line">    <span class="built_in">CGColorSpaceRelease</span>(baseSpace);</span><br><span class="line">    <span class="built_in">CGColorSpaceRelease</span>(patternSpace);</span><br><span class="line">    </span><br><span class="line">    pattern = <span class="built_in">CGPatternCreate</span>(<span class="literal">NULL</span>,</span><br><span class="line">                              <span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, H_PSIZE, V_PSIZE),</span><br><span class="line">                              <span class="built_in">CGAffineTransformIdentity</span>,</span><br><span class="line">                              H_PSIZE+<span class="number">3</span>, V_PSIZE+<span class="number">3</span>,</span><br><span class="line">                              k<span class="built_in">CGPatternTilingNoDistortion</span>,</span><br><span class="line">                              <span class="literal">false</span>,</span><br><span class="line">                              &amp;callbacks);</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">CGContextSetFillPattern</span>(ctx, pattern, color);</span><br><span class="line">    <span class="built_in">CGPatternRelease</span>(pattern);</span><br><span class="line">    <span class="built_in">CGContextFillRect</span>(ctx, rect);</span><br><span class="line">    <span class="built_in">CGContextRestoreGState</span>(ctx);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看到相比着色模式，模板模式的颜色信息是在创建模式时指定的，如此可以方便不同颜色的模式复用，当然将颜色信息使用<code>info</code>结构来传递也是可以实现的，这也是为什么之前说两种模式都可以实现需求的原因。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://tang07070.com/2015/12/22/quartz-2d-transform/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tang07070">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="tang07070's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
             
-              <p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
+            
+              
+                
+                <a class="post-title-link" href="/2015/12/22/quartz-2d-transform/" itemprop="url">
+                  Quartz-2D 学习（三）：变换（Transform）
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-12-22T23:20:59+08:00">
+                2015-12-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Quartz-2D/" itemprop="url" rel="index">
+                    <span itemprop="name">Quartz-2D</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Quartz 2D绘制模型有两个坐标系空间，用户空间和设备空间：</p>
+<ul>
+<li>用户空间：代码中操作的是坐标，使用浮点数表示</li>
+<li>设备空间：设备真正的分辨率，使用像素表示</li>
+</ul>
+<p>我们在实际使用中只需要关注用户空间，不需要关注设备空间，Quartz 2D会在绘制和显示时将用户空间映射到设备空间，如果想要修改默认用户空间，可以通过修改当前变换矩阵（current transformation matrix, or CTM）来实现。</p>
+<h3 id="CTM">CTM</h3><p>通过修改CTM可以影响绘制的内容，我们可以做的修改包括平移（translate），旋转（rotate）和缩放（scale），可以修改其中之一或者进行组合修改，因为CTM也属于Graphics State，所以可以使用<code>CGContextSaveGState</code>保存当前CTM，使用<code>CGContextRestorState</code>恢复之前的CTM。</p>
+<p>下面分别对三种修改方式举个例子，原图使用之前<a href="http://tang07070.com/2015/12/20/quartz-2d-path/">Path文章</a>的示例图:</p>
+<p><img src="/image/quartz-2d/path-fill-even-odd-example.png" alt=""></p>
+<h4 id="平移">平移</h4><p>平移包括横向和纵向，也就是对现坐标系进行x，y坐标偏移，默认坐标系下x轴向右为正增长，y轴向上为正增长，使用以下代码在原图绘制三角形之前进行CTM平移操作：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CGContextTranslateCTM(ctx, <span class="number">30</span>, <span class="number">30</span>);</span><br></pre></td></tr></table></figure>
+<p>结果如图：</p>
+<p><img src="/image/quartz-2d/transform-translate.png" alt=""></p>
+<p>因为例子中使用的是UIView创建的Graphics Context，其CTM已经被修改过，所以对于y轴，向下为正增长</p>
+<h4 id="旋转">旋转</h4><p>通过对CTM进行旋转操作，可以使坐标系进行设定角度的旋转，其旋转锚点为坐标系原点，使用一下代码进行旋转负15度操作：</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CGContextRotateCTM<span class="list">(<span class="keyword">ctx</span>, radians<span class="list">(<span class="keyword">-15</span>)</span>)</span><span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<p>其中<code>radians</code>函数将角度转为浮点数，定义如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">double</span> <span class="title">radians</span> <span class="params">(<span class="keyword">double</span> degrees)</span> </span>&#123;<span class="keyword">return</span> degrees * M_PI/<span class="number">180</span>;&#125;</span><br></pre></td></tr></table></figure>
+<p>结果如图：</p>
+<p><img src="/image/quartz-2d/transform-rotate.png" alt=""></p>
+<p>同样是因为使用的是UIView修改过的CTM，所以其锚点为左上角</p>
+<h4 id="缩放">缩放</h4><p>对CTM进行缩放操作后，任何绘制都会被乘上设定的缩放因子，并且x轴和y轴可以分别设定不同的缩放因子，使用如下代码是x轴、y轴都缩小0.5倍：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CGContextScaleCTM(ctx, <span class="number">.5</span>, <span class="number">.5</span>);</span><br></pre></td></tr></table></figure>
+<p>结果如图：</p>
+<p><img src="/image/quartz-2d/transform-scale.png" alt=""></p>
+<p>因为整个坐标系都被缩放了，所以不仅三角的大小改变了，其原点也会相应的改变</p>
+<h4 id="组合变换">组合变换</h4><p>当对CTM进行不只一种变换时，具体变换的先后顺序会影响到最终的图形，下面贴下官方示例，首先使用如下代码：</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CGContextTranslateCTM <span class="list">(<span class="keyword">myContext</span>, w/4, <span class="number">0</span>)</span><span class="comment">;</span></span><br><span class="line">CGContextScaleCTM <span class="list">(<span class="keyword">myContext</span>, .<span class="number">25</span>,  .<span class="number">5</span>)</span><span class="comment">;</span></span><br><span class="line">CGContextRotateCTM <span class="list">(<span class="keyword">myContext</span>, radians <span class="list">( <span class="number">22</span>.)</span>)</span><span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<p>结果如下：</p>
+<p><img src="https://developer.apple.com/library/ios/documentation/GraphicsImaging/Conceptual/drawingwithquartz2d/Art/tsr_rooster.gif" alt=""></p>
+<p>换一下代码顺序，使用如下代码：</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CGContextRotateCTM <span class="list">(<span class="keyword">myContext</span>, radians <span class="list">( <span class="number">22</span>.)</span>)</span><span class="comment">;</span></span><br><span class="line">CGContextScaleCTM <span class="list">(<span class="keyword">myContext</span>, .<span class="number">25</span>,  .<span class="number">5</span>)</span><span class="comment">;</span></span><br><span class="line">CGContextTranslateCTM <span class="list">(<span class="keyword">myContext</span>, w/4, <span class="number">0</span>)</span><span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<p>结果如下：</p>
+<p><img src="https://developer.apple.com/library/ios/documentation/GraphicsImaging/Conceptual/drawingwithquartz2d/Art/rst_rooster.gif" alt=""></p>
+<h3 id="仿射变换">仿射变换</h3><p>上面说的CTM变换会直接修改当前Context的坐标映射矩阵，如果只是想对矩阵进行变换，可以使用Quartz提供的仿射变换（CGAffineTransform），UIView的<code>transform</code>属性便是一个<code>CGAffineTransform</code>对象，仿射变换同样提供三种变换方式：平移、旋转、缩放，也可以将两个仿射变换进行联合。</p>
+<p>通过<code>CGAffineTransformMakeTranslation</code>方法可以创建一个<code>CGAffineTransform</code>对象，而不带Make的版本<code>CGAffineTransformTranslation</code>则是在一个已有的<code>CGAffineTransform</code>对象上进行平移操作，旋转和缩放同理。</p>
+<p>如果想要联合两个仿射变换，可以使用<code>CGAffineTransformConcat</code>方法，其会返回联合后的新<code>CGAffineTransform</code>对象。如果想将仿射变换应用到当前CTM中，可以使用<code>CGContextConcatCTM</code>方法。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://tang07070.com/2015/12/20/quartz-2d-path/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tang07070">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="tang07070's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2015/12/20/quartz-2d-path/" itemprop="url">
+                  Quartz-2D 学习（二）：路径（Path）
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-12-20T15:30:05+08:00">
+                2015-12-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Quartz-2D/" itemprop="url" rel="index">
+                    <span itemprop="name">Quartz-2D</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Quartz 2D 中的path包含一系列的形状和subpath，通过path可以绘制出各式各样的图形，对其进行描边（stroke）、填充（fill）或是裁剪（clip），也可以组合很多subpath来生成复杂的图形，总之如果想绘制自定义图形，那一定需要用到path。</p>
+<p>下图是一些path示例：</p>
+<p><img src="/image/quartz-2d/path-example.png" alt=""></p>
+<h3 id="基本元素">基本元素</h3><p>再复杂的图形，进行拆解后其基本组成元素也不过几种，点、直线、曲线、弧线等，在Quartz 2D中也是如此。</p>
+<h4 id="点（Point）">点（Point）</h4><p>Point就是一个坐标，使用<code>CGPoint</code>表示，在Quart 2D 中维护了一个current point，其作用是指定一些线性（line、arc等）操作的起始点。想要移动current point，可以使用<code>CGContextMoveToPoint</code>方法。</p>
+<h4 id="线（Line）">线（Line）</h4><p>这里的Line指的是从起点要终点的一条直线，这里的起点就是上面说的current point，所以只需要指定终点既可，添加line的方法有两种：</p>
+<ul>
+<li><code>CGContextAddLineToPoint</code>：添加一条到指定终点的line</li>
+<li><code>CGContextAddLines</code>：其参数是一个<code>CGPoint</code>数组，第一个点作为起点，其他点作为终点依次添加line</li>
+</ul>
+<h4 id="弧线（Arc）">弧线（Arc）</h4><p>Arc是指圆的一个片段，Quartz 提供了两种方式确定Arc：</p>
+<ul>
+<li>圆心和半径确定一个圆，Arc需要在圆的基础上指定起始角度和结束角度，使用<code>CGContextAddArc</code>方法，其角度如下：</li>
+</ul>
+<p><img src="/image/quartz-2d/path-arc1.png" alt=""></p>
+<ul>
+<li>三点连线可以确定一个角，Arc需要在根据半径在这个角中确定具体位置，使用<code>CGContextAddArcToPoint</code>方法，如下图，其中P1是current point，红色标识的是确定的arc：</li>
+</ul>
+<p><img src="/image/quartz-2d/path-arc2.png" alt=""></p>
+<h4 id="曲线（Curve）">曲线（Curve）</h4><p>Curve指的是贝赛尔曲线，Quartz中支持二次和三次贝塞尔曲线：</p>
+<ul>
+<li>二次贝塞尔曲线：<code>CGContextAddCurveToPoint</code></li>
+</ul>
+<p><img src="/image/quartz-2d/path-curve-2.png" alt=""></p>
+<ul>
+<li>三次贝塞尔曲线：<code>CGContextAddQuadCurveToPoint</code></li>
+</ul>
+<p><img src="/image/quartz-2d/path-curve-3.png" alt=""></p>
+<h4 id="矩形（Rectangle）">矩形（Rectangle）</h4><p>这里就是一般的矩形，添加方式和point一样有两种</p>
+<ul>
+<li><code>CGContextAddRect</code>添加一个矩形</li>
+<li><code>CGContextAddRects</code>添加一组矩形</li>
+</ul>
+<h4 id="椭圆（Ellipse）">椭圆（Ellipse）</h4><p>在这里的椭圆不需要指定焦点、中心点等，只要给定一个矩形，Quartz会以矩形中心点为圆心，使用贝赛尔曲线绘制出一个椭圆，该方法为<code>CGContextAddEllipseInRect</code>。</p>
+<h3 id="使用Path">使用Path</h3><p>了解了Path的几种基本元素之后，下面我们看看如何创建、绘制以及裁剪Path。</p>
+<h4 id="创建Path">创建Path</h4><p>使用<code>CGContextBeiginPath</code>方法可以开启一个新的Path过程，特别注意的是这时current point还是空的，调用任何绘制方法都是无效的，所以在开始新的path后，需要立即使用<code>CGContextMoveToPoint</code>方法指定current point，随后便可以开始任意的添加元素了。</p>
+<p>当绘制结束后可以使用<code>CGContextClosePath</code>方法关闭当前path，这是会自动添加一条从current point到path起点的line，形成闭合的回路，随后会开启新的subpath，这时如果不手动指定current point的话，subpath会使用上一个subpath的终点作为其current point。</p>
+<p>当调用绘制函数后，Quartz会根据当前Path完成相应的绘制，并且在绘制完成后使当前Path<strong>无效</strong>，如果需要新增Path就需要再次调用<code>CGContextBeiginPath</code>方法开启新的Path。</p>
+<p>可能会有这样的场景：需要把Path当成一个变量保存起来已备后续使用，这时可以使用<code>CGPathRef</code>或<code>CGMutablePathRef</code>对象，步骤如下：</p>
+<ol>
+<li>使用<code>CGPathCreateMutable</code>创建<code>CGMutablePathRef</code>对象</li>
+<li>使用<code>CGPathMoveToPoint</code>添加current point</li>
+<li>使用<code>CGPathXXX</code>系列方法添加元素，如<code>CGPathAddArcToPoint</code></li>
+<li>使用<code>CGPathCloseSubpath</code>关闭path（可选）</li>
+<li>使用<code>CGContextAddPath</code>将<code>CGMutablePathRef</code>对象添加到context中</li>
+<li>使用<code>CGContextDrawPath</code>绘制path</li>
+</ol>
+<p>同样在绘制之后添加的Path会失效，但是创建的<code>CGMutablePathRef</code>对象可以继续使用。</p>
+<h4 id="绘制Path">绘制Path</h4><p>当创建Path并添加完元素后就可以进行绘制了，绘制Path有两种方式，描边（stroke）和填充（fill），可以选择其中之一或者都选择，如下图所示，其中红色部分是描边，蓝色部分是填充。</p>
+<p><img src="/image/quartz-2d/path-draw-1.png" alt=""></p>
+<h5 id="描边（Stroke）">描边（Stroke）</h5><p>Quartz提供了很多方法可以进行stroke操作，如<code>CGContextStrokePath</code> <code>CGContextDrawPath</code>等，下面主要介绍一下stroke相关属性。</p>
+<ul>
+<li>线宽（Width）：设置线宽的方法为<code>CGContextSetLineWidth</code>，需要注意的是线宽会从中心点向两边增长，举个例子：如果中心点为0，当设置线宽为5时，那么线所占的宽度为[-2, 2]。</li>
+<li>连接点（Join）：设置连接点的方法为<code>CGContextSetLineJoin</code>，Quartz提供了三种方式<ul>
+<li>Miter（default）：<img src="/image/quartz-2d/path-join-miter.png" alt=""></li>
+<li>Round： <img src="/image/quartz-2d/path-join-round.png" alt=""></li>
+<li>Square： <img src="/image/quartz-2d/path-join-square.png" alt=""></li>
+</ul>
+</li>
+<li>端点（Cap）：设置端点的方法为<code>CGContextSetLineCap</code>，Quartz也提供了三种方式<ul>
+<li>Butt（default）：<img src="/image/quartz-2d/path-cap-butt.png" alt=""></li>
+<li>Round：<img src="/image/quartz-2d/path-cap-round.png" alt=""></li>
+<li>Square：<img src="/image/quartz-2d/path-cap-square.png" alt=""></li>
+</ul>
+</li>
+<li>虚线模式（Dash Pattern）：设置虚线模式的方法为<code>CGContextSetLineDash</code>，其中length数组是指[线-空]的长度，比如”— –  “，这种虚线的length数组为{3，1，2，2}</li>
+<li>颜色（Color）：设置stroke颜色的方法为<code>CGContextSetStrokeColor</code>和<code>CGContextSetStrokeColorWithColor</code></li>
+<li>模式（Pattern）：设置stroke模式的方法为<code>CGContextSetStrokePattern</code>，Pattern相关的内容会在后面写</li>
+</ul>
+<h5 id="填充（Fill）">填充（Fill）</h5><p>Quartz提供的Fill Path方法为<code>CGContextFillPath</code>，<code>CGContextEOFillPath</code>等，那带”EO”的和不带”EO”的版本有什么区别呢？当有多个SubPath有重叠部分的时候，Quartz有两种填充规则（fill rule），在此之前需要知道的是Path是有方向的，跟元素的添加顺序有关，默认为顺时针方向</p>
+<ul>
+<li>nonzero winding number rule：内外同向时填充外部和内部，内外反向时只填充外部</li>
+<li>even-odd rule：不管内外同向或内外反向，都只填充外部</li>
+</ul>
+<p>示意图如下：</p>
+<p><img src="/image/quartz-2d/path-fill-rule.png" alt=""></p>
+<p>举个例子，使用如下代码创建Path：</p>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">CGContextBeginPath(ctx);</span><br><span class="line">CGContextAddRect(ctx, <span class="built_in">rect</span>);</span><br><span class="line">CGContextClosePath(ctx);</span><br><span class="line">CGPoint lines[] = &#123;&#123;<span class="built_in">rect</span>.<span class="built_in">size</span>.<span class="variable">width</span>/<span class="number">2</span>, <span class="number">40</span>&#125;, &#123;<span class="built_in">rect</span>.<span class="built_in">size</span>.<span class="variable">width</span> - <span class="number">40</span>, <span class="built_in">rect</span>.<span class="built_in">size</span>.<span class="variable">height</span> - <span class="number">40</span>&#125;, &#123;<span class="number">40</span>, <span class="built_in">rect</span>.<span class="built_in">size</span>.<span class="variable">height</span> - <span class="number">40</span>&#125;&#125;;</span><br><span class="line">CGContextAddLines(ctx, lines, <span class="number">3</span>);</span><br><span class="line">CGContextClosePath(ctx);</span><br></pre></td></tr></table></figure>
+<p>这里的Rect是默认方向的，也就是顺时针方向，三角形按照添加顺序，也是顺时针方向，下面我们使用两种规则分别绘制：</p>
+<ul>
+<li>使用<code>CGContextDrawPath(ctx, kCGPathFillStroke)</code>绘制：<br><img src="/image/quartz-2d/path-fill-winding-number-example.png" alt=""></li>
+<li>使用<code>CGContextDrawPath(ctx, kCGPathEOFillStroke)</code>绘制：<br><img src="/image/quartz-2d/path-fill-even-odd-example.png" alt=""></li>
+</ul>
+<h5 id="混合模式（Blend_Mode）">混合模式（Blend Mode）</h5><p>混合模式是指Quartz如何处理前景和背景叠加的问题，对此有如下公式：</p>
+<blockquote>
+<p>result = (alpha <em> foreground) + (1 - alpha) </em> background</p>
+</blockquote>
+<p>更多的混合模式举例可参见<a href="http://openlayers.org/en/v3.9.0/examples/blend-modes.html" target="_blank" rel="external">http://openlayers.org/en/v3.9.0/examples/blend-modes.html</a></p>
+<h4 id="裁剪Path">裁剪Path</h4><p>创建Path并添加元素之后不一定非要绘制，也可以将画布裁剪为Path的形状，比较常见的用途是作为图片的mask。裁剪后的画布状态是包含在当前context state中的，也就是可以Save和Restore的，另外裁剪Path和绘制Path有很多相同之处：</p>
+<ul>
+<li>裁剪规则和绘制规则相同，也是nonzero winding number rule和even-odd rule，分别对应方法<code>CGContextClip</code>和<code>CGContextEOClip</code></li>
+<li>裁剪后context中的Path也会<strong>失效</strong></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://tang07070.com/2015/12/17/quartz-2d-overview/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tang07070">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="tang07070's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2015/12/17/quartz-2d-overview/" itemprop="url">
+                  Quartz-2D 学习（一）：总览
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-12-17T21:54:01+08:00">
+                2015-12-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Quartz-2D/" itemprop="url" rel="index">
+                    <span itemprop="name">Quartz-2D</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Quartz 2D 是Apple提供给开发者的2D绘图引擎，也是Core Graphics Framework 的一部分，Quartz 2D API是以C函数（以CG开头）的方式给出的，通过Quartz 2D API可以轻松绘制出复杂的2D矢量图形。UIKit应该是iOS开发者很熟悉的UI Framework，其内部对Core Graphics 做了封装，让开发者可以更快速、便捷的实现UI视图，但是凡事有利必有弊，上层封装除了带来便利的同时，也抹杀了很多自由度，不过UIKit还是留了一条后路，开发者可以通过覆写UIView的<code>drawRect:</code>方法来实现自定义视图，当然这只是Quartz 2D 用途的一部分，为了能对Quartz 2D有个整体的认识，首先看一下Quartz 2D 都包括哪些方面。</p>
+<h3 id="画布（Page）">画布（Page）</h3><p>同一般的绘图引擎一样，Quartz 2D 的绘图操作都是在一块「画布」上，Apple对其的定义是Page，我们将内容绘制到Page上的操作是不可逆的，没有方法可以抹掉之前的绘制内容，但是元素绘制是有先后顺序的，也就是Z轴的关系，后绘制的内容会覆盖先绘制的内容，用这种方法，可以覆盖我们想抹掉的内容，让它看起来被”抹掉”了。</p>
+<h3 id="上下文（Graphics_Context）">上下文（Graphics Context）</h3><p>Graphics Context 是Quartz 2D 中很重要的一个概念，通过Context建立了从绘制到具体设备的桥梁，让我们可以对不同的设备使用相同的绘图操作，实现了设备无关性，这里的设备指代：PDF，Bitmap，Window等。Quartz 2D 使用<code>CGContextRef</code>来封装Graphics Context，基本上每个绘制函数都是以<code>CGContextRef</code>作为第一个参数的。</p>
+<p>我们可以使用的Graphics Context有以下几种：</p>
+<ul>
+<li>Bitmap Context：绘制到Bitmap上</li>
+<li>Window Context：绘制到window上</li>
+<li>PDF Context：创建PDF文件</li>
+<li>Layer Context：绘制到Layer（CGLayerRef）上，主要为了离屏渲染和重复性绘制</li>
+</ul>
+<p>下图会有个比较形象的感受：<br><img src="/image/quartz-2d/overview-context-diagram.png" alt=""></p>
+<h3 id="数据类型（Data_Types）">数据类型（Data Types）</h3><p>除了Graphics Context 之外，Quartz 2D 提供了很多的数据类型可供操作，其都是以CG开头，如下：</p>
+<ul>
+<li>Path相关：CGPathRef</li>
+<li>Bitmap相关：CGImageRef</li>
+<li>Layer相关：CGLayerRef</li>
+<li>Pattern相关：CGPatternRef</li>
+<li>Gradient相关：CGShadingRef，CGGradientRef，CGFunctionRef</li>
+<li>Color相关：CGColorRef，CGColorSpaceRef</li>
+<li>Text相关：CGFontRef</li>
+</ul>
+<h3 id="状态（Graphics_State）">状态（Graphics State）</h3><p>我们可以认为graphics state是当前绘制上下文的”配置文件”，很多属性设置都保存在其中，比如设置的line width，fill color等，当我们调用draw函数时，Quartz 2D 会根据graphics state中的配置完成具体的绘制操作。</p>
+<p>Quartz 2D 维护了一个graphics state栈，当我们开始一个新的绘制操作时，可以使用<code>CGContextSaveGState</code>来把当前的graphics state压入栈中，待完成绘制后，使用<code>CGContextRestoreGState</code>从栈中还原当前的graphics state，从而不影响其他后续的绘制操作。</p>
+<p>graphics state中包含以下内容：</p>
+<ul>
+<li>坐标系转换（CTM）</li>
+<li>裁剪区域</li>
+<li>Line属性，如width，join，cap等</li>
+<li>反锯齿设置</li>
+<li>fill和stroke color</li>
+<li>alpha</li>
+<li>color space</li>
+<li>font</li>
+<li>blend mode</li>
+</ul>
+<h3 id="坐标系（Coordinate_Systems）">坐标系（Coordinate Systems）</h3><p>Quartz 2D 的坐标系和UIKit的坐标系是上下镜像的，UIKit坐标系的原点在左上角，而Quartz 2D 坐标系的原点在左下角，如下图：</p>
+<p><img src="/image/quartz-2d/overview-coordinate.png" alt=""></p>
+<p>Quartz 2D 提供了一系列CTM函数可供操作坐标系，如平移、旋转、缩放，UIKit在创建Graphics Context后，会将坐标系旋转到和UIKit坐标系一致，所以在<code>drawRect:</code>中的Context坐标系实际已经被旋转了，类似的还有<code>UIGraphicsBeginImageContextWithOptions</code>返回的Context。</p>
+<h3 id="内存管理（Memory_Management）">内存管理（Memory Management）</h3><p>Quartz 2D 使用的是Core Foundation内存管理模型，也就是引用计数机制，但是不在ARC控制之下，所以需要自己retain和release，方式上有两种选择，使用特定对象的retain和release方法，如<code>CGColorSpaceRetain</code>、<code>CGColorSpaceRelease</code>方法，也可以使用Core Foundation的<code>CFRetain</code>、<code>CFRelease</code>方法。</p>
+<p>以下两点需要谨记：</p>
+<ul>
+<li>create或copy对象一定要在使用后release，一般情况下是获取函数中带有”Create”和”Copy”关键字</li>
+<li>非create或copy对象任何情况下都不要调用release</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://tang07070.com/2015/11/21/run-loop/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tang07070">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="tang07070's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2015/11/21/run-loop/" itemprop="url">
+                  RunLoop介绍
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-11-21T23:33:58+08:00">
+                2015-11-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>当我们运行一个程序的时候，它能够持续响应用户的各种操作行为、timer事件，而不是处理完一个事件后就结束退出，这是为什么呢？简单来说，就是在主线程有一个死循环，让程序一直保持在”存活”状态，事件驱动（Event-Driven）机制都是基于这个原理，再加以扩充，比如windows的消息循环（Message Loop）机制，Chromium也封装了一套跨平台的MessageLoop作为线程模型的基础设施，可见其重要性，而在OSX/iOS中，实现此功能的就是RunLoop，下面就来看看RunLoop具体包括哪些内容。<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2015/11/21/run-loop/#далее" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://tang07070.com/2015/11/06/effective-objective-c/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tang07070">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="tang07070's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2015/11/06/effective-objective-c/" itemprop="url">
+                  Effective Objective-C 读书笔记
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-11-06T21:37:13+08:00">
+                2015-11-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Objective-C/" itemprop="url" rel="index">
+                    <span itemprop="name">Objective-C</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>在学习C++的时候，读过Effective系列（Effective C++ / More Effective C++）书籍，其中虽然没有深入的原理实现，也没有多酷炫的奇淫巧技，大都是作者在多年工程经验中对如何用好一门语言的总结。通过它，经验丰富者可以对已在心中存在，但是还有些混乱的知识进行梳理沉淀，真正的化为己有；新手则可以按照书中所写作为今后的一个参考，提醒自己如何写出优秀的代码。</p>
+<p>Effective Objective-C自然也是必读之一，在刚开始学习Objective-C不久的时候大概翻了一遍，没怎么用心，自然也没记住多少，只是混个眼熟。近来使用Objective-C开发也有一段时间，所以又拿起来重新读了一遍，趁着思维导图工具<a href="https://itunes.apple.com/cn/app/ithoughtsx/id720669838">iThoughtX</a>特价时入了一个，正好作为辅助读书的工具，相比以前不爱记笔记的习惯，确实很不错。<a href="https://itunes.apple.com/cn/app/ithoughtsx/id720669838">iThoughtX</a>支持导出很多种格式，包括MarkDown，可以直接放到博客上，真是太方便了。</p>
+<p>这是脑图导出的图片，比较大，如果需要看的话，建议下载到本地或者<a href="/image/effective-objective-c/Effective-oc.png">单独打开</a>。<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2015/11/06/effective-objective-c/#далее" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://tang07070.com/2015/10/29/objc-obj-class/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tang07070">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="tang07070's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2015/10/29/objc-obj-class/" itemprop="url">
+                  Objective-C 类和对象
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-10-29T14:14:21+08:00">
+                2015-10-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Objective-C/" itemprop="url" rel="index">
+                    <span itemprop="name">Objective-C</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p><em>Objective-C</em> 作为一门动态语言，给了程序员在运行期很大的自由度，要了解其机制，首先要从面向对象语言的基本元素对象和类说起。</p>
+<h2 id="对象">对象</h2><hr>
+<h3 id="对象是什么">对象是什么</h3><p><em>Objective-C</em> 和 <em>C++</em> 都是产生于1980年代，而且又都是为了兼容 C 的同时，扩展出面向对象特性，但是思想是有不同的，<em>Objective-C</em> 更加注重类型的动态性，所有的方法调用都增加了一层，使用消息的方式，而非在编译时直接确定方法的内存地址，语法如下：</p>
+<blockquote>
+<p>[obj message]</p>
+</blockquote>
+<p>那么，对象是什么呢？在 <em>Objective-C</em> 中，所有的对象都可以用<code>id</code>来表示，那<code>id</code>又是什么呢？在objc的头文件中有它的定义：<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2015/10/29/objc-obj-class/#далее" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://tang07070.com/2015/10/26/xcode-config-bak/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tang07070">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="tang07070's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2015/10/26/xcode-config-bak/" itemprop="url">
+                  Xcode一些配置记录
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-10-26T22:09:59+08:00">
+                2015-10-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Xcode/" itemprop="url" rel="index">
+                    <span itemprop="name">Xcode</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>记录一下Xcode经常会用到的一些配置信息</p>
+<h2 id="使用svn号作为build号">使用svn号作为build号</h2><p>在Build Phase—Run Srcipt添加以下脚本<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">REV=`svnversion -nc | /usr/bin/sed <span class="operator">-e</span> <span class="string">'s/^[^:]*://;s/[A-Za-z]//'</span>`</span><br><span class="line">BASEVERNUM=`/usr/libexec/PlistBuddy -c <span class="string">"Print :CFBundleShortVersionString"</span> <span class="string">"<span class="variable">$&#123;INFOPLIST_FILE&#125;</span>"</span>`</span><br><span class="line">/usr/libexec/PlistBuddy -c <span class="string">"Set :CFBundleVersion <span class="variable">$REV</span>"</span> <span class="string">"<span class="variable">$&#123;INFOPLIST_FILE&#125;</span>"</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="Xcode插件失效解决方案">Xcode插件失效解决方案</h2>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2015/10/26/xcode-config-bak/#далее" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://tang07070.com/2015/10/24/hello-world/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tang07070">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="tang07070's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2015/10/24/hello-world/" itemprop="url">
+                  Hello World
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-10-24T22:09:59+08:00">
+                2015-10-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
 <h2 id="Quick_Start">Quick Start</h2><h3 id="Create_a_new_post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
 <p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
 <h3 id="Run_server">Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
@@ -341,13 +1882,26 @@
 <h3 id="Deploy_to_remote_sites">Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
 <p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
 
-            
-          </span>
+          
         
       
     </div>
 
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
     <footer class="post-footer">
+      
+
       
 
       
@@ -365,15 +1919,16 @@
 
   
 
- </div>
 
-        
+          </div>
+          
 
-        
-      </div>
 
-      
+          
+
+        </div>
         
+          
   
   <div class="sidebar-toggle">
     <div class="sidebar-toggle-line-wrap">
@@ -390,33 +1945,48 @@
 
       
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" src="http://7xntiq.com1.z0.glb.clouddn.com/avatar.jpg" alt="tang07070" itemprop="image"/>
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="tang07070" />
           <p class="site-author-name" itemprop="name">tang07070</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
         </div>
-        <p class="site-description motion-element" itemprop="description"></p>
         <nav class="site-state motion-element">
-          <div class="site-state-item site-state-posts">
-            <a href="/archives">
-              <span class="site-state-item-count">2</span>
-              <span class="site-state-item-name">posts</span>
-            </a>
-          </div>
 
-          <div class="site-state-item site-state-categories">
-            <a href="/categories">
-              <span class="site-state-item-count">1</span>
-              <span class="site-state-item-name">categories</span>
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">日志</span>
               </a>
-          </div>
+            </div>
+          
 
-          <div class="site-state-item site-state-tags">
-            <a href="/tags">
-              <span class="site-state-item-count">2</span>
-              <span class="site-state-item-name">tags</span>
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
               </a>
-          </div>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
 
         </nav>
 
@@ -429,11 +1999,15 @@
         
         
 
-        <div class="links-of-author motion-element">
-          
-        </div>
+        
+        
+
+        
+
 
       </section>
+
+      
 
       
 
@@ -441,104 +2015,175 @@
   </aside>
 
 
-      
+        
+      </div>
     </main>
 
     <footer id="footer" class="footer">
-      <div class="footer-inner"> <div class="copyright" >
+      <div class="footer-inner">
+        <div class="copyright" >
   
-  &copy; 
-  <span itemprop="copyrightYear">2015</span>
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2017</span>
   <span class="with-love">
-    <i class="icon-next-heart fa fa-heart"></i>
+    <i class="fa fa-year"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">tang07070</span>
 </div>
 
+
 <div class="powered-by">
-  Powered by <a class="theme-link" href="http://hexo.io">Hexo</a>
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
 </div>
 
 <div class="theme-info">
-  Theme -
+  主题 -
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT
+    NexT.Pisces
   </a>
 </div>
 
 
- </div>
+        
+
+        
+      </div>
     </footer>
 
-    <div class="back-to-top"></div>
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
   </div>
 
-  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
-
-  
-  
-  
-    
-    
-
   
 
-
-  
-  
-  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
-  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.2"></script>
-
-
-  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.2"></script>
-  
-
-  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
-  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
-
-  <script type="text/javascript" src="/js/motion_global.js?v=0.4.5.2" id="motion.global"></script>
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
 
 
 
 
-  <script type="text/javascript" src="/js/nav-toggle.js?v=0.4.5.2"></script>
-  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+
+
+
 
   
 
-  <script type="text/javascript">
-    $(document).ready(function () {
 
-      isMobile() && FastClick.attach(document.body);
+  
 
-      // Define Motion Sequence.
-      motionIntegrator
-        .add(motionMiddleWares.logo)
-        .add(motionMiddleWares.menu)
-        .add(motionMiddleWares.backToTop)
-        .add(motionMiddleWares.postList)
-        .add(motionMiddleWares.sidebar);
 
-      // Bootstrap Motion.
-      motionIntegrator.bootstrap();
-    });
-  </script>
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
 
   
   
 
-  
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
   
 
   
-  <script type="text/javascript" src="/js/lazyload.js"></script>
-  <script type="text/javascript">
-    $(function () {
-      $("#posts").find('img').lazyload({
-        placeholder: "/images/loading.gif",
-        effect: "fadeIn"
-      });
-    });
-  </script>
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
 </body>
 </html>

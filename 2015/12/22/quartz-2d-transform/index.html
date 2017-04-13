@@ -1,0 +1,786 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Core Graphics,Quartz," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="Quartz 2D绘制模型有两个坐标系空间，用户空间和设备空间：
+
+用户空间：代码中操作的是坐标，使用浮点数表示
+设备空间：设备真正的分辨率，使用像素表示
+
+我们在实际使用中只需要关注用户空间，不需要关注设备空间，Quartz 2D会在绘制和显示时将用户空间映射到设备空间，如果想要修改默认用户空间，可以通过修改当前变换矩阵（current transformation matrix, or CTM">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Quartz-2D 学习（三）：变换（Transform）">
+<meta property="og:url" content="http://tang07070.com/2015/12/22/quartz-2d-transform/index.html">
+<meta property="og:site_name" content="tang07070's blog">
+<meta property="og:description" content="Quartz 2D绘制模型有两个坐标系空间，用户空间和设备空间：
+
+用户空间：代码中操作的是坐标，使用浮点数表示
+设备空间：设备真正的分辨率，使用像素表示
+
+我们在实际使用中只需要关注用户空间，不需要关注设备空间，Quartz 2D会在绘制和显示时将用户空间映射到设备空间，如果想要修改默认用户空间，可以通过修改当前变换矩阵（current transformation matrix, or CTM">
+<meta property="og:image" content="http://tang07070.com/image/quartz-2d/path-fill-even-odd-example.png">
+<meta property="og:image" content="http://tang07070.com/image/quartz-2d/transform-translate.png">
+<meta property="og:image" content="http://tang07070.com/image/quartz-2d/transform-rotate.png">
+<meta property="og:image" content="http://tang07070.com/image/quartz-2d/transform-scale.png">
+<meta property="og:image" content="https://developer.apple.com/library/ios/documentation/GraphicsImaging/Conceptual/drawingwithquartz2d/Art/tsr_rooster.gif">
+<meta property="og:image" content="https://developer.apple.com/library/ios/documentation/GraphicsImaging/Conceptual/drawingwithquartz2d/Art/rst_rooster.gif">
+<meta property="og:updated_time" content="2015-12-22T15:25:56.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Quartz-2D 学习（三）：变换（Transform）">
+<meta name="twitter:description" content="Quartz 2D绘制模型有两个坐标系空间，用户空间和设备空间：
+
+用户空间：代码中操作的是坐标，使用浮点数表示
+设备空间：设备真正的分辨率，使用像素表示
+
+我们在实际使用中只需要关注用户空间，不需要关注设备空间，Quartz 2D会在绘制和显示时将用户空间映射到设备空间，如果想要修改默认用户空间，可以通过修改当前变换矩阵（current transformation matrix, or CTM">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://tang07070.com/2015/12/22/quartz-2d-transform/"/>
+
+
+
+
+
+  <title> Quartz-2D 学习（三）：变换（Transform） | tang07070's blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">tang07070's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://tang07070.com/2015/12/22/quartz-2d-transform/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tang07070">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="tang07070's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Quartz-2D 学习（三）：变换（Transform）
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-12-22T23:20:59+08:00">
+                2015-12-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Quartz-2D/" itemprop="url" rel="index">
+                    <span itemprop="name">Quartz-2D</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Quartz 2D绘制模型有两个坐标系空间，用户空间和设备空间：</p>
+<ul>
+<li>用户空间：代码中操作的是坐标，使用浮点数表示</li>
+<li>设备空间：设备真正的分辨率，使用像素表示</li>
+</ul>
+<p>我们在实际使用中只需要关注用户空间，不需要关注设备空间，Quartz 2D会在绘制和显示时将用户空间映射到设备空间，如果想要修改默认用户空间，可以通过修改当前变换矩阵（current transformation matrix, or CTM）来实现。</p>
+<h3 id="CTM">CTM</h3><p>通过修改CTM可以影响绘制的内容，我们可以做的修改包括平移（translate），旋转（rotate）和缩放（scale），可以修改其中之一或者进行组合修改，因为CTM也属于Graphics State，所以可以使用<code>CGContextSaveGState</code>保存当前CTM，使用<code>CGContextRestorState</code>恢复之前的CTM。</p>
+<p>下面分别对三种修改方式举个例子，原图使用之前<a href="http://tang07070.com/2015/12/20/quartz-2d-path/">Path文章</a>的示例图:</p>
+<p><img src="/image/quartz-2d/path-fill-even-odd-example.png" alt=""></p>
+<h4 id="平移">平移</h4><p>平移包括横向和纵向，也就是对现坐标系进行x，y坐标偏移，默认坐标系下x轴向右为正增长，y轴向上为正增长，使用以下代码在原图绘制三角形之前进行CTM平移操作：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CGContextTranslateCTM(ctx, <span class="number">30</span>, <span class="number">30</span>);</span><br></pre></td></tr></table></figure>
+<p>结果如图：</p>
+<p><img src="/image/quartz-2d/transform-translate.png" alt=""></p>
+<p>因为例子中使用的是UIView创建的Graphics Context，其CTM已经被修改过，所以对于y轴，向下为正增长</p>
+<h4 id="旋转">旋转</h4><p>通过对CTM进行旋转操作，可以使坐标系进行设定角度的旋转，其旋转锚点为坐标系原点，使用一下代码进行旋转负15度操作：</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CGContextRotateCTM<span class="list">(<span class="keyword">ctx</span>, radians<span class="list">(<span class="keyword">-15</span>)</span>)</span><span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<p>其中<code>radians</code>函数将角度转为浮点数，定义如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">double</span> <span class="title">radians</span> <span class="params">(<span class="keyword">double</span> degrees)</span> </span>&#123;<span class="keyword">return</span> degrees * M_PI/<span class="number">180</span>;&#125;</span><br></pre></td></tr></table></figure>
+<p>结果如图：</p>
+<p><img src="/image/quartz-2d/transform-rotate.png" alt=""></p>
+<p>同样是因为使用的是UIView修改过的CTM，所以其锚点为左上角</p>
+<h4 id="缩放">缩放</h4><p>对CTM进行缩放操作后，任何绘制都会被乘上设定的缩放因子，并且x轴和y轴可以分别设定不同的缩放因子，使用如下代码是x轴、y轴都缩小0.5倍：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CGContextScaleCTM(ctx, <span class="number">.5</span>, <span class="number">.5</span>);</span><br></pre></td></tr></table></figure>
+<p>结果如图：</p>
+<p><img src="/image/quartz-2d/transform-scale.png" alt=""></p>
+<p>因为整个坐标系都被缩放了，所以不仅三角的大小改变了，其原点也会相应的改变</p>
+<h4 id="组合变换">组合变换</h4><p>当对CTM进行不只一种变换时，具体变换的先后顺序会影响到最终的图形，下面贴下官方示例，首先使用如下代码：</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CGContextTranslateCTM <span class="list">(<span class="keyword">myContext</span>, w/4, <span class="number">0</span>)</span><span class="comment">;</span></span><br><span class="line">CGContextScaleCTM <span class="list">(<span class="keyword">myContext</span>, .<span class="number">25</span>,  .<span class="number">5</span>)</span><span class="comment">;</span></span><br><span class="line">CGContextRotateCTM <span class="list">(<span class="keyword">myContext</span>, radians <span class="list">( <span class="number">22</span>.)</span>)</span><span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<p>结果如下：</p>
+<p><img src="https://developer.apple.com/library/ios/documentation/GraphicsImaging/Conceptual/drawingwithquartz2d/Art/tsr_rooster.gif" alt=""></p>
+<p>换一下代码顺序，使用如下代码：</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CGContextRotateCTM <span class="list">(<span class="keyword">myContext</span>, radians <span class="list">( <span class="number">22</span>.)</span>)</span><span class="comment">;</span></span><br><span class="line">CGContextScaleCTM <span class="list">(<span class="keyword">myContext</span>, .<span class="number">25</span>,  .<span class="number">5</span>)</span><span class="comment">;</span></span><br><span class="line">CGContextTranslateCTM <span class="list">(<span class="keyword">myContext</span>, w/4, <span class="number">0</span>)</span><span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<p>结果如下：</p>
+<p><img src="https://developer.apple.com/library/ios/documentation/GraphicsImaging/Conceptual/drawingwithquartz2d/Art/rst_rooster.gif" alt=""></p>
+<h3 id="仿射变换">仿射变换</h3><p>上面说的CTM变换会直接修改当前Context的坐标映射矩阵，如果只是想对矩阵进行变换，可以使用Quartz提供的仿射变换（CGAffineTransform），UIView的<code>transform</code>属性便是一个<code>CGAffineTransform</code>对象，仿射变换同样提供三种变换方式：平移、旋转、缩放，也可以将两个仿射变换进行联合。</p>
+<p>通过<code>CGAffineTransformMakeTranslation</code>方法可以创建一个<code>CGAffineTransform</code>对象，而不带Make的版本<code>CGAffineTransformTranslation</code>则是在一个已有的<code>CGAffineTransform</code>对象上进行平移操作，旋转和缩放同理。</p>
+<p>如果想要联合两个仿射变换，可以使用<code>CGAffineTransformConcat</code>方法，其会返回联合后的新<code>CGAffineTransform</code>对象。如果想将仿射变换应用到当前CTM中，可以使用<code>CGContextConcatCTM</code>方法。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Core-Graphics/" rel="tag"># Core Graphics</a>
+          
+            <a href="/tags/Quartz/" rel="tag"># Quartz</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/12/20/quartz-2d-path/" rel="next" title="Quartz-2D 学习（二）：路径（Path）">
+                <i class="fa fa-chevron-left"></i> Quartz-2D 学习（二）：路径（Path）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/12/27/quartz-2d-pattern/" rel="prev" title="Quartz-2D 学习（四）：模式（Pattern）">
+                Quartz-2D 学习（四）：模式（Pattern） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="tang07070" />
+          <p class="site-author-name" itemprop="name">tang07070</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#CTM"><span class="nav-number">1.</span> <span class="nav-text">CTM</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#平移"><span class="nav-number">1.1.</span> <span class="nav-text">平移</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#旋转"><span class="nav-number">1.2.</span> <span class="nav-text">旋转</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#缩放"><span class="nav-number">1.3.</span> <span class="nav-text">缩放</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#组合变换"><span class="nav-number">1.4.</span> <span class="nav-text">组合变换</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#仿射变换"><span class="nav-number">2.</span> <span class="nav-text">仿射变换</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-year"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">tang07070</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

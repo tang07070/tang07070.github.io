@@ -1,0 +1,794 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Objective-C," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="Objective-C 作为一门动态语言，给了程序员在运行期很大的自由度，要了解其机制，首先要从面向对象语言的基本元素对象和类说起。
+对象
+对象是什么Objective-C 和 C++ 都是产生于1980年代，而且又都是为了兼容 C 的同时，扩展出面向对象特性，但是思想是有不同的，Objective-C 更加注重类型的动态性，所有的方法调用都增加了一层，使用消息的方式，而非在编译时直接确定方法的内">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Objective-C 类和对象">
+<meta property="og:url" content="http://tang07070.com/2015/10/29/objc-obj-class/index.html">
+<meta property="og:site_name" content="tang07070's blog">
+<meta property="og:description" content="Objective-C 作为一门动态语言，给了程序员在运行期很大的自由度，要了解其机制，首先要从面向对象语言的基本元素对象和类说起。
+对象
+对象是什么Objective-C 和 C++ 都是产生于1980年代，而且又都是为了兼容 C 的同时，扩展出面向对象特性，但是思想是有不同的，Objective-C 更加注重类型的动态性，所有的方法调用都增加了一层，使用消息的方式，而非在编译时直接确定方法的内">
+<meta property="og:image" content="http://tang07070.com/image/objc-obj-class/class-member.jpg">
+<meta property="og:image" content="http://tang07070.com/image/objc-obj-class/class-diagram.jpg">
+<meta property="og:updated_time" content="2015-11-21T15:48:57.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Objective-C 类和对象">
+<meta name="twitter:description" content="Objective-C 作为一门动态语言，给了程序员在运行期很大的自由度，要了解其机制，首先要从面向对象语言的基本元素对象和类说起。
+对象
+对象是什么Objective-C 和 C++ 都是产生于1980年代，而且又都是为了兼容 C 的同时，扩展出面向对象特性，但是思想是有不同的，Objective-C 更加注重类型的动态性，所有的方法调用都增加了一层，使用消息的方式，而非在编译时直接确定方法的内">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://tang07070.com/2015/10/29/objc-obj-class/"/>
+
+
+
+
+
+  <title> Objective-C 类和对象 | tang07070's blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">tang07070's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://tang07070.com/2015/10/29/objc-obj-class/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tang07070">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="tang07070's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Objective-C 类和对象
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-10-29T14:14:21+08:00">
+                2015-10-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Objective-C/" itemprop="url" rel="index">
+                    <span itemprop="name">Objective-C</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><em>Objective-C</em> 作为一门动态语言，给了程序员在运行期很大的自由度，要了解其机制，首先要从面向对象语言的基本元素对象和类说起。</p>
+<h2 id="对象">对象</h2><hr>
+<h3 id="对象是什么">对象是什么</h3><p><em>Objective-C</em> 和 <em>C++</em> 都是产生于1980年代，而且又都是为了兼容 C 的同时，扩展出面向对象特性，但是思想是有不同的，<em>Objective-C</em> 更加注重类型的动态性，所有的方法调用都增加了一层，使用消息的方式，而非在编译时直接确定方法的内存地址，语法如下：</p>
+<blockquote>
+<p>[obj message]</p>
+</blockquote>
+<p>那么，对象是什么呢？在 <em>Objective-C</em> 中，所有的对象都可以用<code>id</code>来表示，那<code>id</code>又是什么呢？在objc的头文件中有它的定义：<br><a id="more"></a><br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> objc_object &#123;</span><br><span class="line">    Class isa  OBJC_ISA_AVAILABILITY;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> objc_object *id;</span><br></pre></td></tr></table></figure></p>
+<p>我们可以看到<code>id</code>是一个结构体指针，指向<code>objc_object</code>，而这个<code>objc_object</code>就是我们所说的对象了</p>
+<h3 id="对象内存结构">对象内存结构</h3><p>从定义来看，object只有一个<code>Class</code>类型的<code>isa</code>成员，至于<code>Class</code>到底是什么，后面会讲到，我们先看一下object在内存中到底是什么样子的，结构如下图：<br><img src="/image/objc-obj-class/class-member.jpg" alt=""><br>最上面的是<code>isa</code>指针，下面依次是继承体系中基类以及派生类的成员变量，下面就来验证一下这个结构</p>
+<p>首先定义类<code>A</code>和<code>B</code>，如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">@interface A : NSObject &#123;</span><br><span class="line">@<span class="keyword">public</span></span><br><span class="line">    <span class="keyword">int</span> a;</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br><span class="line">@implementation A</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">@interface B : A &#123;</span><br><span class="line">@<span class="keyword">public</span></span><br><span class="line">    <span class="keyword">int</span> b;</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br><span class="line">@implementation B</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">B* b = [[B alloc] init];</span><br></pre></td></tr></table></figure>
+<p>先看一下<code>lldb</code>打印出来的结构</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">(lldb) p *b</span><br><span class="line">(B) $0 = &#123;</span><br><span class="line">  A = &#123;</span><br><span class="line">    NSObject = &#123;</span><br><span class="line">      isa = B</span><br><span class="line">    &#125;</span><br><span class="line">    a = 0</span><br><span class="line">  &#125;</span><br><span class="line">  b = 0</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>从结果来看确实跟上图吻合，但是没有看到真正的内存结构还是不能确定。</p>
+<p>下面打印对象<code>b</code>的成员，因为代码中不能直接访问<code>isa</code>指针，所以用<code>object_getClass</code>代替：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">NSLog(@<span class="string">"b = %p, b-&gt;isa = %p, b-&gt;a = %p, b-&gt;b = %p"</span>, b, object_getClass(b), &amp;b-&gt;a, &amp;b-&gt;b);</span><br><span class="line">NSLog(@<span class="string">"64bit in b addr : 0x%llx"</span>, *( <span class="keyword">u_int64_t</span>*)(__bridge <span class="keyword">void</span>*)b);</span><br></pre></td></tr></table></figure>
+<p>结果如下</p>
+<blockquote>
+<p>b = 0x100203cb0, b-&gt;isa = 0x1000012e8, b-&gt;a = 0x100203cb8, b-&gt;b = 0x100203cbc<br>64bit in b addr : 0x1d8001000012e9</p>
+</blockquote>
+<p>可以看到，在64位环境下，<code>b-&gt;a</code>和<code>b-&gt;b</code>的偏移地址都是符合预期的，但是<code>b-&gt;isa</code>指针的地址看起来是错误的？没错，<code>0x1000012e8</code>确实不是<code>isa</code>的地址，而是<code>isa</code>指向的<code>类对象</code>的地址，暂时现不关注<code>类对象</code>，继续看下面打印的<code>b</code>的前8个字节，也就是<code>0x1d8001000012e9</code>，是不是感觉和<code>0x1000012e8</code>有些像呢？<br>在解释原因之前先看一下在64位情况下的<code>isa</code>指针都包含哪些信息：</p>
+<figure class="highlight vhdl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">(LSB)</span><br><span class="line"><span class="number">1</span> <span class="typename">bit</span>    |  indexed           | <span class="number">0</span> <span class="keyword">is</span> raw isa, <span class="number">1</span> <span class="keyword">is</span> non-pointer isa.</span><br><span class="line"><span class="number">1</span> <span class="typename">bit</span>    |  has_assoc         | Object has <span class="keyword">or</span> once had an associated reference. Object <span class="keyword">with</span> no associated references can deallocate faster.</span><br><span class="line"><span class="number">1</span> <span class="typename">bit</span>    |  has_cxx_dtor      | Object has a C++ <span class="keyword">or</span> ARC destructor. Objects <span class="keyword">with</span> no destructor can deallocate faster.</span><br><span class="line"><span class="number">30</span> bits  |  shiftcls          | Class pointer<span class="attribute">'s</span> non-zero bits.</span><br><span class="line"><span class="number">9</span> bits   |  magic             | Equals <span class="number">0</span>xd2. Used by the debugger <span class="keyword">to</span> distinguish real objects from uninitialized junk.</span><br><span class="line"><span class="number">1</span> <span class="typename">bit</span>    |  weakly_referenced | Object <span class="keyword">is</span> <span class="keyword">or</span> once was pointed <span class="keyword">to</span> by an ARC weak <span class="keyword">variable</span>. Objects <span class="keyword">not</span> weakly referenced can deallocate faster.</span><br><span class="line"><span class="number">1</span> <span class="typename">bit</span>    |  deallocating      | Object <span class="keyword">is</span> currently deallocating.</span><br><span class="line"><span class="number">1</span> <span class="typename">bit</span>    |  has_sidetable_rc  | Object<span class="attribute">'s</span> retain count <span class="keyword">is</span> too large <span class="keyword">to</span> store inline.</span><br><span class="line"><span class="number">19</span> bits  |  extra_rc          | Object<span class="attribute">'s</span> retain count above <span class="number">1</span>. (<span class="keyword">For</span> example, <span class="keyword">if</span> extra_rc <span class="keyword">is</span> <span class="number">5</span> <span class="keyword">then</span> the object<span class="attribute">'s</span> real retain count <span class="keyword">is</span> <span class="number">6</span>.)</span><br><span class="line">(MSB)</span><br></pre></td></tr></table></figure>
+<p>虽然这个结构跟现在的有些区别，但还是有指示意义的，前33bit(去掉第一个bit)表示的才是真正的<code>isa</code>指向的地址，先假设<code>0x1d8001000012e9</code>就是<code>isa</code>指针，那么我们取其前33bit，也就是<code>0x1000012e9</code>，在去掉第一个bit，结果就是<code>0x1000012e8</code>，没错，和上面<code>object_getClass(b)</code>的地址是一样的，这里基本上可以确定对象内存结构中最上面的一个指针就是<code>isa</code>，但是为了再确认一次，可以在<code>lldb</code>中打印<code>isa</code>的地址</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(lldb) p &amp;b-&gt;isa</span><br><span class="line">(Class *) <span class="variable">$1</span> = <span class="number">0x0000000100203cb0</span></span><br></pre></td></tr></table></figure>
+<p>没错，<code>0x0000000100203cb0</code>就是<code>b</code>的地址，也就是说对象最开始的位置就是<code>isa</code>指针，到这里基本上也就验证了对象的内存结构就是如上图所示的了，但是<code>isa</code>到底是个什么东西？在介绍之前我们先看看本文的另一个主题，&lt;类&gt;</p>
+<h2 id="类">类</h2><hr>
+<h3 id="类是什么">类是什么</h3><p>接触过面向对象的都知道类就是对事物的抽象，封装了属性以及方法，Objective-C 中使用<code>Class</code>表示，那么按照惯例先看一下<code>Class</code>的定义：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> objc_class &#123;</span><br><span class="line">    Class isa  OBJC_ISA_AVAILABILITY;</span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#<span class="keyword">if</span> !__OBJC2__</span></span><br><span class="line">    Class super_class                                        OBJC2_UNAVAILABLE;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">char</span> *name                                         OBJC2_UNAVAILABLE;</span><br><span class="line">    <span class="keyword">long</span> version                                             OBJC2_UNAVAILABLE;</span><br><span class="line">    <span class="keyword">long</span> info                                                OBJC2_UNAVAILABLE;</span><br><span class="line">    <span class="keyword">long</span> instance_size                                       OBJC2_UNAVAILABLE;</span><br><span class="line">    <span class="keyword">struct</span> objc_ivar_list *ivars                             OBJC2_UNAVAILABLE;</span><br><span class="line">    <span class="keyword">struct</span> objc_method_list **methodLists                    OBJC2_UNAVAILABLE;</span><br><span class="line">    <span class="keyword">struct</span> objc_cache *cache                                 OBJC2_UNAVAILABLE;</span><br><span class="line">    <span class="keyword">struct</span> objc_protocol_list *protocols                     OBJC2_UNAVAILABLE;</span><br><span class="line"><span class="preprocessor">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line">&#125; OBJC2_UNAVAILABLE;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> objc_class *Class;</span><br></pre></td></tr></table></figure></p>
+<p>结构体中下面的成员是为了兼容<em>OBJC1</em>的，虽然在 <em>OBJC2</em> 中不在这里定义了，但它们应该还是存在的，这里可以用它们来说明一下类的结构：</p>
+<ul>
+<li><code>Class super_class</code> 指向父类的指针</li>
+<li><code>const char *name</code> 类的名字, <em>object_getClassName</em>获取的应该就是它</li>
+<li><code>long instance_size</code> 实例对象大小</li>
+<li><code>struct objc_ivar_list *ivars</code> 实例变量列表</li>
+<li><code>struct objc_method_list **methodLists</code> 指向方法列表，<em>Category</em>添加的方法列表应该就是加在这里的</li>
+<li><code>struct objc_cache *cache</code> 方法缓存，在一定程度上提高消息响应速度，虽然还是比直接调用慢</li>
+<li><code>struct objc_protocol_list *protocols</code> 实现的协议列表</li>
+</ul>
+<p>通过上面这些，大概能理解当我们编写一个 <em>类</em> 代码的时候，编译器是怎么把它结构化的，当然编译器要做的肯定不止这些，这里只是示意一下。</p>
+<p>接下来再看 <em>OBJC2</em> 中唯一一个成员<code>isa</code>， 怎么又是<code>isa</code>，这货怎么在 <em>类</em> 里也有？难道这里的 <em>类</em> 和 <em>对象</em> 有什么共同的特性？的确有，而且是跟 <em>C++</em> 大有不同的一个特性，<em>类</em> 也是一个 <em>对象</em>。</p>
+<h3 id="类对象">类对象</h3><p>在 <em>Objective-C</em> 中，<em>对象</em> 是 <em>类</em> 的实例，<em>对象</em> 的<code>isa</code>正是指向其所属的 <em>类</em> 的，而 <em>类</em> 中的<code>isa</code>又是指向其所属的 <em>元类</em>，如本文开头所举的一个消息发送的例子：</p>
+<blockquote>
+<p>[obj message]</p>
+</blockquote>
+<p>这里给<code>obj</code>发送消息，而<code>obj</code>对消息的响应方法就是在其所属的 <em>类</em> 中查找的，同样，向 <em>类</em> 发送的消息如：</p>
+<blockquote>
+<p>[class message]</p>
+</blockquote>
+<p>响应方法则是在这个 <em>类对象</em> 所属的 <em>元类</em> 中查找的，下面说一下元类。</p>
+<h3 id="元类">元类</h3><p><em>元类</em> 中会存储其实例 <em>类对象</em> 的方法，而 <em>元类</em> 本身也是一个对象，他所属的类是 <em>根元类</em>，也就是<code>NSObject</code>的 <em>元类</em>，不仅如此，所有的 <em>元类</em>， 不管继承层级是怎么样的，他们的 <em>元类</em> 都是 <em>根元类</em>。<br>看起来有点混乱，一图胜过千言，请看下图：<br><img src="/image/objc-obj-class/class-diagram.jpg" alt=""><br>看到这里就清晰了吧，<code>superclass</code>指定了继承关系，<code>isa</code>指定了类型，各司其职，互不影响，但是还是需要再验证一下：</p>
+<p>继续沿用之前的类定义</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">@interface A : NSObject &#123;</span><br><span class="line">@<span class="keyword">public</span></span><br><span class="line">    <span class="keyword">int</span> a;</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br><span class="line">@implementation A</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">@interface B : A &#123;</span><br><span class="line">@<span class="keyword">public</span></span><br><span class="line">    <span class="keyword">int</span> b;</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br><span class="line">@implementation B</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">B* b = [[B alloc] init];</span><br></pre></td></tr></table></figure>
+<p>迭代5次跟踪其<code>superclass</code>和<code>isa</code>指针</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Class currentClass = [b <span class="keyword">class</span>];</span><br><span class="line">Class superClass = currentClass;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++)</span><br><span class="line">&#123;</span><br><span class="line">    NSLog(@<span class="string">"isa - %p(%@) | superclass - %p(%@)"</span>, currentClass, currentClass, superClass , superClass);</span><br><span class="line">    currentClass = object_getClass(currentClass);</span><br><span class="line">    superClass = [superClass superclass];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>结果如下</p>
+<blockquote>
+<p>isa - 0x1000012e8(B) | superclass - 0x1000012e8(B)<br>isa - 0x1000012c0(B) | superclass - 0x100001298(A)<br>isa - 0x7fff758f7118(NSObject) | superclass - 0x7fff758f70f0(NSObject)<br>isa - 0x7fff758f7118(NSObject) | superclass - 0x0((null))<br>isa - 0x7fff758f7118(NSObject) | superclass - 0x0((null))</p>
+</blockquote>
+<p>很明显是符合图中所示的，这个就不解释了。</p>
+<h2 id="isa">isa</h2><hr>
+<p>其实到这里对<code>isa</code>的作用比较清楚了，按白话来说，就是表示这个 <em>对象</em> 是个什么 <em>类</em>，<em>Objective-C</em> 的运行时多态就是通过<code>isa</code>来实现的，关于 <em>runtime</em> 更具体的原理和应用以后在专门来写吧，<em>类</em> 和 <em>对象</em> 的介绍就到这里了。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Objective-C/" rel="tag"># Objective-C</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/10/26/xcode-config-bak/" rel="next" title="Xcode一些配置记录">
+                <i class="fa fa-chevron-left"></i> Xcode一些配置记录
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/11/06/effective-objective-c/" rel="prev" title="Effective Objective-C 读书笔记">
+                Effective Objective-C 读书笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="tang07070" />
+          <p class="site-author-name" itemprop="name">tang07070</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#对象"><span class="nav-number">1.</span> <span class="nav-text">对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#对象是什么"><span class="nav-number">1.1.</span> <span class="nav-text">对象是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对象内存结构"><span class="nav-number">1.2.</span> <span class="nav-text">对象内存结构</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类"><span class="nav-number">2.</span> <span class="nav-text">类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#类是什么"><span class="nav-number">2.1.</span> <span class="nav-text">类是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类对象"><span class="nav-number">2.2.</span> <span class="nav-text">类对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#元类"><span class="nav-number">2.3.</span> <span class="nav-text">元类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#isa"><span class="nav-number">3.</span> <span class="nav-text">isa</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-year"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">tang07070</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

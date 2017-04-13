@@ -1,0 +1,755 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Core Graphics,Quartz," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="这里的渐变是指颜色渐变，Quartz 2D提供了两种渐变方式，轴向渐变和径向渐变
+轴向渐变（Axial Gradient）轴向渐变也叫线性渐变，是指对于从渐变起点到渐变终点的连线，所有垂直于该连线的线，具有不变的颜色值，可以参考下面的图示：
+
+其中lx和ly便是垂直于轴线的线，其颜色是不变的，Cora Animation中的CAGradientLayer实现的就是轴向渐变，或者说是封装了Quart">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Quartz-2D 学习（五）：渐变（Gradient）">
+<meta property="og:url" content="http://tang07070.com/2016/01/07/quartz-2d-gradient/index.html">
+<meta property="og:site_name" content="tang07070's blog">
+<meta property="og:description" content="这里的渐变是指颜色渐变，Quartz 2D提供了两种渐变方式，轴向渐变和径向渐变
+轴向渐变（Axial Gradient）轴向渐变也叫线性渐变，是指对于从渐变起点到渐变终点的连线，所有垂直于该连线的线，具有不变的颜色值，可以参考下面的图示：
+
+其中lx和ly便是垂直于轴线的线，其颜色是不变的，Cora Animation中的CAGradientLayer实现的就是轴向渐变，或者说是封装了Quart">
+<meta property="og:image" content="http://tang07070.com/image/quartz-2d/gradient-axial-1.png">
+<meta property="og:image" content="http://tang07070.com/image/quartz-2d/gradient-axial-2.png">
+<meta property="og:image" content="http://tang07070.com/image/quartz-2d/gradient-radial-1.png">
+<meta property="og:image" content="http://tang07070.com/image/quartz-2d/gradient-radial-2.png">
+<meta property="og:updated_time" content="2016-01-07T15:34:13.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Quartz-2D 学习（五）：渐变（Gradient）">
+<meta name="twitter:description" content="这里的渐变是指颜色渐变，Quartz 2D提供了两种渐变方式，轴向渐变和径向渐变
+轴向渐变（Axial Gradient）轴向渐变也叫线性渐变，是指对于从渐变起点到渐变终点的连线，所有垂直于该连线的线，具有不变的颜色值，可以参考下面的图示：
+
+其中lx和ly便是垂直于轴线的线，其颜色是不变的，Cora Animation中的CAGradientLayer实现的就是轴向渐变，或者说是封装了Quart">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://tang07070.com/2016/01/07/quartz-2d-gradient/"/>
+
+
+
+
+
+  <title> Quartz-2D 学习（五）：渐变（Gradient） | tang07070's blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">tang07070's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://tang07070.com/2016/01/07/quartz-2d-gradient/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tang07070">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="tang07070's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Quartz-2D 学习（五）：渐变（Gradient）
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-01-07T23:30:10+08:00">
+                2016-01-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Quartz-2D/" itemprop="url" rel="index">
+                    <span itemprop="name">Quartz-2D</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>这里的渐变是指颜色渐变，Quartz 2D提供了两种渐变方式，轴向渐变和径向渐变</p>
+<h3 id="轴向渐变（Axial_Gradient）">轴向渐变（Axial Gradient）</h3><p>轴向渐变也叫线性渐变，是指对于从渐变起点到渐变终点的连线，所有垂直于该连线的线，具有不变的颜色值，可以参考下面的图示：</p>
+<p><img src="/image/quartz-2d/gradient-axial-1.png" alt=""></p>
+<p>其中lx和ly便是垂直于轴线的线，其颜色是不变的，Cora Animation中的<code>CAGradientLayer</code>实现的就是轴向渐变，或者说是封装了Quartz 2D的轴向渐变方法，提供了面向对象的实现。</p>
+<p>为了创建一个轴向渐变效果，需要指定起点、终点以及各个关键点的位置和颜色，比如要实现下图的效果：</p>
+<p><img src="/image/quartz-2d/gradient-axial-2.png" alt=""></p>
+<p>其代码如下：</p>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> drawAxialGradient(CGContextRef ctx, CGRect <span class="built_in">rect</span>) &#123;</span><br><span class="line">    CGGradientRef gradient;</span><br><span class="line">    CGColorSpaceRef colorSpace;</span><br><span class="line">    </span><br><span class="line">    CGFloat location[] = &#123;<span class="number">0.0</span>, <span class="number">1.0</span>&#125;;</span><br><span class="line">    CGFloat components[] = &#123;<span class="number">1.0</span>, <span class="number">0.2</span>, <span class="number">0.2</span>, <span class="number">1.0</span>,</span><br><span class="line">                            <span class="number">0.2</span>, <span class="number">0.5</span>, <span class="number">0.9</span>, <span class="number">1.0</span>&#125;;</span><br><span class="line">    </span><br><span class="line">    colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);</span><br><span class="line">    gradient = CGGradientCreateWithColorComponents(colorSpace, components, location, <span class="number">2</span>);</span><br><span class="line">    CGColorSpaceRelease(colorSpace);</span><br><span class="line">    </span><br><span class="line">    CGContextBeginPath(ctx);</span><br><span class="line">    CGPoint lines[] = &#123;&#123;<span class="built_in">rect</span>.<span class="built_in">size</span>.<span class="variable">width</span>/<span class="number">2</span>, <span class="number">0</span>&#125;, &#123;<span class="built_in">rect</span>.<span class="built_in">size</span>.<span class="variable">width</span>, <span class="built_in">rect</span>.<span class="built_in">size</span>.<span class="variable">height</span>&#125;, &#123;<span class="number">0</span>, <span class="built_in">rect</span>.<span class="built_in">size</span>.<span class="variable">height</span>&#125;&#125;;</span><br><span class="line">    CGContextAddLines(ctx, lines, <span class="number">3</span>);</span><br><span class="line">    CGContextClosePath(ctx);</span><br><span class="line">    CGContextClip(ctx);</span><br><span class="line">    </span><br><span class="line">    CGPoint startPt = &#123;<span class="built_in">rect</span>.<span class="built_in">size</span>.<span class="variable">width</span>/<span class="number">2</span>, <span class="number">0</span>&#125;;</span><br><span class="line">    CGPoint endPt = &#123;<span class="built_in">rect</span>.<span class="built_in">size</span>.<span class="variable">width</span>/<span class="number">2</span>, <span class="built_in">rect</span>.<span class="built_in">size</span>.<span class="variable">height</span>&#125;;</span><br><span class="line">    CGContextDrawLinearGradient(ctx, gradient, startPt, endPt, <span class="number">0</span>);</span><br><span class="line">    CGGradientRelease(gradient);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里指定的起点是三角形的顶点，终点是三角形的底边中间点，因为起点和终点的连线是垂直的，根据轴向渐变的特性，故三角形每条水平线的颜色都是不变的；指定的关键点有两个，0.0和1.0，因为是按照百分比指定的，所以也就是起点和终点的位置，颜色分别是RGBA的<code>1.0, 0.2, 0.2, 1.0</code>和<code>0.2, 0.5, 0.9, 1.0</code></p>
+<p>对于绘制过程，首先使用<code>CGGradientCreateWithColorComponents</code>方法根据关键点信息创建<code>CGGradientRef</code>对象，然后裁剪出三角形Path，最后使用<code>CGContextDrawLinearGradient</code>方法绘制轴向渐变</p>
+<h3 id="径向渐变（Radial_Gradient）">径向渐变（Radial Gradient）</h3><p>径向渐变也是两个端点连线的轴向渐变，不过两个端点不再只是一个像素点，而是一个圆，例如下图渐变效果：</p>
+<p><img src="/image/quartz-2d/gradient-radial-1.png" alt=""></p>
+<p>其代码如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">drawRadialGradient</span><span class="params">(CGContextRef ctx, CGRect rect)</span> </span>&#123;</span><br><span class="line">    CGGradientRef gradient;</span><br><span class="line">    CGColorSpaceRef colorSpace;</span><br><span class="line">    </span><br><span class="line">    CGFloat location[] = &#123;<span class="number">0.0</span>, <span class="number">1.0</span>&#125;;</span><br><span class="line">    CGFloat components[] = &#123;<span class="number">1.0</span>, <span class="number">0.2</span>, <span class="number">0.2</span>, <span class="number">1.0</span>,</span><br><span class="line">        <span class="number">0.2</span>, <span class="number">0.5</span>, <span class="number">0.9</span>, <span class="number">1.0</span>&#125;;</span><br><span class="line">    </span><br><span class="line">    colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);</span><br><span class="line">    gradient = CGGradientCreateWithColorComponents(colorSpace, components, location, <span class="number">2</span>);</span><br><span class="line">    CGColorSpaceRelease(colorSpace);</span><br><span class="line">    </span><br><span class="line">    CGPoint startPt = &#123;<span class="number">30</span>, <span class="number">30</span>&#125;;</span><br><span class="line">    CGPoint endPt = &#123;rect.size.width/<span class="number">2</span>, rect.size.height/<span class="number">2</span>&#125;;</span><br><span class="line">    CGContextDrawRadialGradient(ctx, gradient, startPt, <span class="number">20</span>, endPt, <span class="number">50</span>, <span class="number">0</span>);</span><br><span class="line">    CGGradientRelease(gradient);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>和轴向渐变相比，<code>CGGradientRef</code>对象的创建是完全相同的，只是使用<code>CGContextDrawRadialGradient</code>方法并指定端点半径</p>
+<p>径向渐变比较常见的使用场景可能就是同心圆渐变，如下图效果：</p>
+<p><img src="/image/quartz-2d/gradient-radial-2.png" alt=""></p>
+<p>实现起来也很简单，起点和终点坐标相同，并且起点半径设置为0即可</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Core-Graphics/" rel="tag"># Core Graphics</a>
+          
+            <a href="/tags/Quartz/" rel="tag"># Quartz</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/12/27/quartz-2d-pattern/" rel="next" title="Quartz-2D 学习（四）：模式（Pattern）">
+                <i class="fa fa-chevron-left"></i> Quartz-2D 学习（四）：模式（Pattern）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="tang07070" />
+          <p class="site-author-name" itemprop="name">tang07070</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#轴向渐变（Axial_Gradient）"><span class="nav-number">1.</span> <span class="nav-text">轴向渐变（Axial Gradient）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#径向渐变（Radial_Gradient）"><span class="nav-number">2.</span> <span class="nav-text">径向渐变（Radial Gradient）</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-year"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">tang07070</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
