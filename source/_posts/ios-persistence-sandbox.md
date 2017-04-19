@@ -6,7 +6,7 @@ categories: iOS
 
 iOS在本地持久化上很很多种方式可以选择，在使用上大体上分为以下三种：
 
-+ File
++ {% post_link ios-persistence-file File%}
 + CoreData
 + SQLite
 
@@ -44,3 +44,60 @@ iOS在本地持久化上很很多种方式可以选择，在使用上大体上�
 
 ### tmp
 用来存储临时文件，使用完后记得自己删掉，在APP没有运行时系统也会定期清理这个目录，**不会**被iTunes和iCloud自动同步
+
+## NSCoding / NSKeyed​Archiver
+
+之所以把这个放在这里，是因为`NSCoding`和`NSKeyed​Archiver`并不是一种持久化的方式，而是一种序列化方式，可以配合持久化来使用。
+
+### NSCoding
+
+`NSCoding`协议用来指定该如何来序列化和反序列化这个类，包含一下两个方法：
+
+```
+public func encode(with aCoder: NSCoder)
+public init?(coder aDecoder: NSCoder)
+```
+
+使用的话也很简单，比如：
+
+```
+class A: NSCoding {
+    var a: Int!
+    var b: String!
+    
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(a, forKey: "key_a")
+        aCoder.encode(b, forKey: "key_b")
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        a = aDecoder.decodeInteger(forKey: "key_a")
+        b = aDecoder.decodeObject(forKey: "key_b") as? String
+    }
+}
+```
+
+当然了，如果属性比较多的话，实现起来就比较麻烦，也不美观，并且容易出错，可以借助**runtime**来简化这个过程，原理就是遍历属性进行encode和decode，有很多成熟的库已经实现了，比如Mantle，JSONModel等等。
+
+### NSKeyed​Archiver / NSKeyedUnarchiver
+
+上面说到`NSCoding`是用来约定如何序列化和反序列化，而实际的序列化操作是由`NSKeyed​Archiver`和`NSKeyedUnarchiver`进行的
+
+序列化方式如下：
+
+```
+let data = NSKeyedArchiver.archivedData(withRootObject: obj)
+```
+
+也可以直接序列化到文件里：
+
+```
+NSKeyedArchiver.archiveRootObject(obj, toFile: "file_path")
+```
+
+反序列化的方式也很简单：
+
+```
+NSKeyedUnarchiver.unarchiveObject(with: data)
+NSKeyedUnarchiver.unarchiveObject(withFile: "file_path")
+```
