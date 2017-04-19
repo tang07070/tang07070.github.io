@@ -106,7 +106,7 @@ SQLite
 这里先不展开说，后面会依次详细介绍，下面是一些前置基础知识。
 SandBox在文件存储方面，相比其他操作系统，iOS、macOS的一大特色就是其沙盒机制，每个APP只能访问到自己APP的存储空间，其他APP的存储空间是访问不到的（iOS8后可以通过APP Groups来共享数据），">
 <meta property="og:image" content="https://developer.apple.com/library/content/documentation/FileManagement/Conceptual/FileSystemProgrammingGuide/art/ios_app_layout_2x.png">
-<meta property="og:updated_time" content="2017-04-17T16:32:59.000Z">
+<meta property="og:updated_time" content="2017-04-19T14:10:28.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS持久化（一）：介绍">
 <meta name="twitter:description" content="iOS在本地持久化上很很多种方式可以选择，在使用上大体上分为以下三种：
@@ -375,7 +375,7 @@ SandBox在文件存储方面，相比其他操作系统，iOS、macOS的一大�
       
         <p>iOS在本地持久化上很很多种方式可以选择，在使用上大体上分为以下三种：</p>
 <ul>
-<li>File</li>
+<li><a href="/2017/04/18/ios-persistence-file/" title="File">File</a></li>
 <li>CoreData</li>
 <li>SQLite</li>
 </ul>
@@ -400,6 +400,19 @@ SandBox在文件存储方面，相比其他操作系统，iOS、macOS的一大�
 <p><em>Application Support</em> 用来存放APP生成的一些支持文件，如配置文件之类的，默认<strong>会</strong>被iTunes和iCloud自动同步</p>
 <p><em>Caches</em> 用来存放APP生成的缓存文件，如日志，视频缓存之类的，系统会在磁盘空间不足时删除这个目录的内容来释放空间，默认<strong>不会</strong>被iTunes和iCloud自动同步</p>
 <h3 id="tmp">tmp</h3><p>用来存储临时文件，使用完后记得自己删掉，在APP没有运行时系统也会定期清理这个目录，<strong>不会</strong>被iTunes和iCloud自动同步</p>
+<h2 id="NSCoding_/_NSKeyed​Archiver">NSCoding / NSKeyed​Archiver</h2><p>之所以把这个放在这里，是因为<code>NSCoding</code>和<code>NSKeyed​Archiver</code>并不是一种持久化的方式，而是一种序列化方式，可以配合持久化来使用。</p>
+<h3 id="NSCoding">NSCoding</h3><p><code>NSCoding</code>协议用来指定该如何来序列化和反序列化这个类，包含一下两个方法：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="func"><span class="keyword">func</span> <span class="title">encode</span><span class="params">(with aCoder: NSCoder)</span></span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">init</span>?(coder aDecoder: <span class="type">NSCoder</span>)</span><br></pre></td></tr></table></figure>
+<p>使用的话也很简单，比如：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>: <span class="title">NSCoding</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> a: <span class="type">Int</span>!</span><br><span class="line">    <span class="keyword">var</span> b: <span class="type">String</span>!</span><br><span class="line">    </span><br><span class="line">    <span class="func"><span class="keyword">func</span> <span class="title">encode</span><span class="params">(with aCoder: NSCoder)</span></span> &#123;</span><br><span class="line">        aCoder.encode(a, forKey: <span class="string">"key_a"</span>)</span><br><span class="line">        aCoder.encode(b, forKey: <span class="string">"key_b"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">required</span> <span class="keyword">init</span>?(coder aDecoder: <span class="type">NSCoder</span>) &#123;</span><br><span class="line">        a = aDecoder.decodeInteger(forKey: <span class="string">"key_a"</span>)</span><br><span class="line">        b = aDecoder.decodeObject(forKey: <span class="string">"key_b"</span>) <span class="keyword">as</span>? <span class="type">String</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当然了，如果属性比较多的话，实现起来就比较麻烦，也不美观，并且容易出错，可以借助<strong>runtime</strong>来简化这个过程，原理就是遍历属性进行encode和decode，有很多成熟的库已经实现了，比如Mantle，JSONModel等等。</p>
+<h3 id="NSKeyed​Archiver_/_NSKeyedUnarchiver">NSKeyed​Archiver / NSKeyedUnarchiver</h3><p>上面说到<code>NSCoding</code>是用来约定如何序列化和反序列化，而实际的序列化操作是由<code>NSKeyed​Archiver</code>和<code>NSKeyedUnarchiver</code>进行的</p>
+<p>序列化方式如下：</p>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">let</span> <span class="typedef"><span class="keyword">data</span> = <span class="type">NSKeyedArchiver</span>.archivedData<span class="container">(<span class="title">withRootObject</span>: <span class="title">obj</span>)</span></span></span><br></pre></td></tr></table></figure>
+<p>也可以直接序列化到文件里：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NSKeyedArchiver.<span class="function"><span class="title">archiveRootObject</span><span class="params">(obj, toFile: <span class="string">"file_path"</span>)</span></span></span><br></pre></td></tr></table></figure>
+<p>反序列化的方式也很简单：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">NSKeyedUnarchiver.<span class="function"><span class="title">unarchiveObject</span><span class="params">(with: data)</span></span></span><br><span class="line">NSKeyedUnarchiver.<span class="function"><span class="title">unarchiveObject</span><span class="params">(withFile: <span class="string">"file_path"</span>)</span></span></span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -453,6 +466,10 @@ SandBox在文件存储方面，相比其他操作系统，iOS、macOS的一大�
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/04/18/ios-persistence-file/" rel="prev" title="iOS持久化（二）：File">
+                iOS持久化（二）：File <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -524,7 +541,7 @@ SandBox在文件存储方面，相比其他操作系统，iOS、macOS的一大�
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -546,7 +563,7 @@ SandBox在文件存储方面，相比其他操作系统，iOS、macOS的一大�
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -581,7 +598,7 @@ SandBox在文件存储方面，相比其他操作系统，iOS、macOS的一大�
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#SandBox"><span class="nav-number">1.</span> <span class="nav-text">SandBox</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#目录结构"><span class="nav-number">2.</span> <span class="nav-text">目录结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Documents"><span class="nav-number">2.1.</span> <span class="nav-text">Documents</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Library"><span class="nav-number">2.2.</span> <span class="nav-text">Library</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tmp"><span class="nav-number">2.3.</span> <span class="nav-text">tmp</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#SandBox"><span class="nav-number">1.</span> <span class="nav-text">SandBox</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#目录结构"><span class="nav-number">2.</span> <span class="nav-text">目录结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Documents"><span class="nav-number">2.1.</span> <span class="nav-text">Documents</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Library"><span class="nav-number">2.2.</span> <span class="nav-text">Library</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tmp"><span class="nav-number">2.3.</span> <span class="nav-text">tmp</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NSCoding_/_NSKeyed​Archiver"><span class="nav-number">3.</span> <span class="nav-text">NSCoding / NSKeyed​Archiver</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#NSCoding"><span class="nav-number">3.1.</span> <span class="nav-text">NSCoding</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NSKeyed​Archiver_/_NSKeyedUnarchiver"><span class="nav-number">3.2.</span> <span class="nav-text">NSKeyed​Archiver / NSKeyedUnarchiver</span></a></li></ol></li></ol></div>
             
 
           </div>

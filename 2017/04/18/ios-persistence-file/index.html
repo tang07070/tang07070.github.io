@@ -1,0 +1,813 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="NSUserDefaults,iOS,持久化," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="理论上所有的本地持久化都是存的文件，在这里指的是一些简单的文件存储，包括但不限于：
+
+NSUserDefaults
+Property List
+Raw File
+
+NSUserDefaultsNSUserDefaults应该是使用频率最高的简单持久化方式了，没办法，用起来太方便了，只需要一个key就搞定了，也正是因为使用的太方便，导致很多工程里各种滥用，这一点在使用中一定要注意！一般的使用方式如g">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS持久化（二）：File">
+<meta property="og:url" content="http://tang07070.com/2017/04/18/ios-persistence-file/index.html">
+<meta property="og:site_name" content="tang07070's blog">
+<meta property="og:description" content="理论上所有的本地持久化都是存的文件，在这里指的是一些简单的文件存储，包括但不限于：
+
+NSUserDefaults
+Property List
+Raw File
+
+NSUserDefaultsNSUserDefaults应该是使用频率最高的简单持久化方式了，没办法，用起来太方便了，只需要一个key就搞定了，也正是因为使用的太方便，导致很多工程里各种滥用，这一点在使用中一定要注意！一般的使用方式如g">
+<meta property="og:updated_time" content="2017-04-19T13:50:49.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS持久化（二）：File">
+<meta name="twitter:description" content="理论上所有的本地持久化都是存的文件，在这里指的是一些简单的文件存储，包括但不限于：
+
+NSUserDefaults
+Property List
+Raw File
+
+NSUserDefaultsNSUserDefaults应该是使用频率最高的简单持久化方式了，没办法，用起来太方便了，只需要一个key就搞定了，也正是因为使用的太方便，导致很多工程里各种滥用，这一点在使用中一定要注意！一般的使用方式如g">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://tang07070.com/2017/04/18/ios-persistence-file/"/>
+
+
+
+
+
+  <title> iOS持久化（二）：File | tang07070's blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">tang07070's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://tang07070.com/2017/04/18/ios-persistence-file/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tang07070">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/image/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="tang07070's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                iOS持久化（二）：File
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-18T21:26:58+08:00">
+                2017-04-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>理论上所有的本地持久化都是存的文件，在这里指的是一些简单的文件存储，包括但不限于：</p>
+<ul>
+<li>NSUserDefaults</li>
+<li>Property List</li>
+<li>Raw File</li>
+</ul>
+<h2 id="NSUserDefaults">NSUserDefaults</h2><p>NSUserDefaults应该是使用频率最高的简单持久化方式了，没办法，用起来太方便了，只需要一个key就搞定了，也正是因为使用的太方便，导致很多工程里各种滥用，这一点在使用中一定要注意！一般的使用方式如<code>get</code>、<code>set</code>，很常用也很简单，这里就不多说了，但它的功能远不止这些，下面主要说下经常会被忽略的地方。</p>
+<h3 id="基础">基础</h3><p>可能对于NSUserDefaults一般的理解是：把保存的配置以Key-Value的方式，用plist作为存储格式保存到沙盒中。这么理解没错，但是不够全面，这样的话有点太小看NSUserDefaults了。</p>
+<p>NSUserDefaults可以理解为对一系列配置文件的管理，并非只有app的配置文件，以<em>MVC</em>的角度来看，NSUserDefaults是<em>C</em>，每个配置文件可以认为是<em>Model</em>，NSUserDefaults使用<strong>Domain</strong>的方式进行管理。</p>
+<h3 id="Domain">Domain</h3><p>Domain可以理解为一类配置，是NSUserDefaults对于配置文件的组织方式，它的类型可以分为<code>volatile</code>和<code>persistent</code>，也就是临时保存在内存中和持久化到磁盘中。</p>
+<p>默认有5种Domain，按照搜索顺序排序依次为：</p>
+<ul>
+<li>NSArgumentDomain (volatile)</li>
+<li>Application (persistent)</li>
+<li>NSGlobalDomain (persistent)</li>
+<li>Languages (volatile)</li>
+<li>NSRegistrationDomain (volatile)</li>
+</ul>
+<p>当我们进行<code>get</code>操作时，会按照上述顺序依次进行查询，直到找到对应的key，如果都没有找到，就会返回<code>nil</code>。</p>
+<h4 id="Argument_Domain">Argument Domain</h4><p>这里用来保存程序启动的参数，在iOS上实际意义不大，启动参数可以在Xcode的<em>Edit Schemes</em>中进行配置，但是需要注意参数需要以<code>-key value</code>的方式传入。</p>
+<p>获取方式如下：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">UserDefaults</span><span class="class">.standard</span><span class="class">.volatileDomain</span>(<span class="tag">forName</span>: <span class="tag">UserDefaults</span><span class="class">.argumentDomain</span>)</span><br></pre></td></tr></table></figure></p>
+<h4 id="Application_Domain">Application Domain</h4><p>这里就是大家比较熟悉的了，我们的一般操作都是对于的这个Domain，用来存储App相关配置，plist文件存放在<code>Library/Preferences/$BundleId.plist</code></p>
+<h4 id="Global_Domain">Global Domain</h4><p>这里用来给系统级<code>frameworks</code>保存一些系统相关的配置项，一般App不会用到。</p>
+<h4 id="Languages_Domains">Languages Domains</h4><p>这里用来保存语言相关的配置项，App不会用到。</p>
+<h4 id="Registration_Domain">Registration Domain</h4><p>这里用来定义一些<code>key</code>的默认值，当没有找到给定的<code>key</code>的value时，会使用这个Domain下面的<code>value</code>，因为它在NSUserDefaults搜索list的最下层。</p>
+<p>registration domain是可以被设置的，方式如下：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let dict = [<span class="string">"key"</span>: <span class="string">"value"</span>]</span><br><span class="line">UserDefaults<span class="class">.standard</span><span class="class">.register</span>(defaults: dict)</span><br></pre></td></tr></table></figure>
+<h4 id="自定义Domain">自定义Domain</h4><p>如果需要的话，可以向NSUserDefaults加入自定的Domain，但是不会加到它的搜索list中，只能通过获取Domain的方式来取到内容。</p>
+<p>主要是这几个api，区分<code>volatile</code>和<code>persistent</code>方式:</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">open <span class="func"><span class="keyword">func</span> <span class="title">volatileDomain</span><span class="params">(forName domainName: String)</span></span> -&gt; [<span class="type">String</span> : <span class="type">Any</span>]</span><br><span class="line">open <span class="func"><span class="keyword">func</span> <span class="title">setVolatileDomain</span><span class="params">(<span class="number">_</span> domain: [String : Any], forName domainName: String)</span></span></span><br><span class="line">open <span class="func"><span class="keyword">func</span> <span class="title">removeVolatileDomain</span><span class="params">(forName domainName: String)</span></span></span><br><span class="line"></span><br><span class="line">open <span class="func"><span class="keyword">func</span> <span class="title">persistentDomain</span><span class="params">(forName domainName: String)</span></span> -&gt; [<span class="type">String</span> : <span class="type">Any</span>]?</span><br><span class="line">open <span class="func"><span class="keyword">func</span> <span class="title">setPersistentDomain</span><span class="params">(<span class="number">_</span> domain: [String : Any], forName domainName: String)</span></span></span><br><span class="line">open <span class="func"><span class="keyword">func</span> <span class="title">removePersistentDomain</span><span class="params">(forName domainName: String)</span></span></span><br></pre></td></tr></table></figure>
+<h3 id="Suite">Suite</h3><p>通过Suite可以让不同的App共享数据，只有Suite的名字相同就可以。</p>
+<p>创建Suite</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">UserDefaults</span><span class="params">(suiteName: <span class="string">"suite"</span>)</span></span></span><br></pre></td></tr></table></figure>
+<p>将Suite加入到搜索树（注意该Suite在搜索树中的位置是Application Domain之后，Global Domain之前）</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UserDefaults<span class="class">.standard</span><span class="class">.addSuite</span>(named: <span class="string">"suite"</span>)</span><br></pre></td></tr></table></figure>
+<p>移除Suite</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UserDefaults<span class="class">.standard</span><span class="class">.removeSuite</span>(named: <span class="string">"suite"</span>)</span><br></pre></td></tr></table></figure>
+<p>到这里NSUserDefaults相关的内容就说完了（还没有包含iCloud部分），最开始我也以为只是一个单纯的App配置文件，没想到里面还有这么多道道，看来没事读读官方文档还是很有必要的。</p>
+<h2 id="Property_List">Property List</h2><p>Property List就是我们俗称的plist，上面也提到过，以key-value的方式保存数据，其格式是基于xml的</p>
+<h3 id="读取">读取</h3><p>plist文件的读取方式如下</p>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> func propertyList<span class="container">(<span class="title">from</span> <span class="title">data</span>: <span class="type">Data</span>, <span class="title">options</span> <span class="title">opt</span>: <span class="type">PropertyListSerialization</span>.<span class="type">ReadOptions</span> = [], <span class="title">format</span>: <span class="type">UnsafeMutablePointer</span>&lt;<span class="type">PropertyListSerialization</span>.<span class="type">PropertyListFormat</span>&gt;?)</span> throws -&gt; <span class="type">Any</span></span></span><br></pre></td></tr></table></figure>
+<p>example:</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> path = Bundle.main.path(forResource: <span class="string">"Info"</span>, ofType: <span class="string">"plist"</span>)</span><br><span class="line"><span class="keyword">let</span> data = FileManager.<span class="keyword">default</span>.contents(atPath: path!)</span><br><span class="line"><span class="keyword">var</span> format = PropertyListSerialization.PropertyListFormat.xml</span><br><span class="line"><span class="keyword">do</span> &#123;</span><br><span class="line">	<span class="keyword">let</span> dict = <span class="keyword">try</span> PropertyListSerialization.propertyList(<span class="keyword">from</span>: data!, options: PropertyListSerialization.ReadOptions.mutableContainers, format: &amp;format) <span class="keyword">as</span>? Dictionary&lt;String, Any&gt;</span><br><span class="line">&#125; <span class="keyword">catch</span>  &#123;</span><br><span class="line">	print(error)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>有一种比较简便的方式，使用plist文件路径构造一个<code>NSDictionary</code></p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">convenience</span> <span class="keyword">init</span>?(contentsOfFile path: <span class="type">String</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">convenience</span> <span class="keyword">init</span>?(contentsOf url: <span class="type">URL</span>)</span><br></pre></td></tr></table></figure>
+<p>example:</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let path = Bundle<span class="class">.main</span><span class="class">.path</span>(forResource: <span class="string">"Info"</span>, ofType: <span class="string">"plist"</span>)</span><br><span class="line">let dict = <span class="function"><span class="title">NSDictionary</span><span class="params">(contentsOfFile: path!)</span></span></span><br></pre></td></tr></table></figure>
+<h3 id="保存">保存</h3><p>可以先用下面的api转换为Data，再把Data保存到文件</p>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> func data<span class="container">(<span class="title">fromPropertyList</span> <span class="title">plist</span>: <span class="type">Any</span>, <span class="title">format</span>: <span class="type">PropertyListSerialization</span>.<span class="type">PropertyListFormat</span>, <span class="title">options</span> <span class="title">opt</span>: <span class="type">PropertyListSerialization</span>.<span class="type">WriteOptions</span>)</span> throws -&gt; <span class="type">Data</span></span></span><br></pre></td></tr></table></figure>
+<p>这里的<code>PropertyListSerialization.WriteOptions</code>没有用到，随便写一个数就可以了</p>
+<p>example:</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">let dict = [<span class="string">"key"</span>: <span class="string">"value"</span>]</span><br><span class="line">do &#123;</span><br><span class="line">	let data = <span class="keyword">try</span> PropertyListSerialization.data(<span class="string">fromPropertyList:</span> dict, <span class="string">format:</span> PropertyListSerialization.PropertyListFormat.xml, <span class="string">options:</span> <span class="number">0</span>)</span><br><span class="line">	<span class="keyword">try</span> data.write(<span class="string">to:</span> URL(<span class="string">fileURLWithPath:</span> <span class="string">"path_save_plist"</span>))</span><br><span class="line">&#125; <span class="keyword">catch</span> &#123;</span><br><span class="line">	print(error)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>和读取一样，也可以使用<code>NSDictionary</code>的简便方法</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">write</span><span class="params">(toFile path: String, atomically useAuxiliaryFile: Bool)</span></span> -&gt; <span class="type">Bool</span></span><br><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">write</span><span class="params">(to url: URL, atomically: Bool)</span></span> -&gt; <span class="type">Bool</span></span><br></pre></td></tr></table></figure>
+<p>example:</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let dict = [<span class="string">"key"</span>: <span class="string">"value"</span>] <span class="keyword">as</span> NSDictionary</span><br><span class="line">dict.write(<span class="string">toFile:</span> <span class="string">"path_save_plist"</span>, <span class="string">atomically:</span> <span class="literal">true</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="Raw_File">Raw File</h2><p>最后要说的是纯文件操作，保存最原始的数据，不使用任何格式封装，类似c语言的<code>FILE</code>和c++的<code>fstream</code>，在iOS上使用的是<code>FileHandle</code></p>
+<h3 id="FileHandle">FileHandle</h3><p>FileHandle是对file descriptor的面向对象封装，可以用它来存储files，sockets，pipes和devices，在这里只说file的方式，下面列举了一下会用到的api。</p>
+<h4 id="打开文件">打开文件</h4><p>大家都知道，打开文件的方式一般有三种：<strong>只读</strong>，<strong>只写</strong> 和 <strong>读写</strong></p>
+<p>只读打开文件：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">convenience</span> <span class="keyword">init</span>?(forReadingAtPath path: <span class="type">String</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">convenience</span> <span class="keyword">init</span>(forReadingFrom url: <span class="type">URL</span>) <span class="keyword">throws</span></span><br></pre></td></tr></table></figure>
+<p>只写打开文件：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">convenience</span> <span class="keyword">init</span>?(forWritingAtPath path: <span class="type">String</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">convenience</span> <span class="keyword">init</span>(forWritingTo url: <span class="type">URL</span>) <span class="keyword">throws</span></span><br></pre></td></tr></table></figure>
+<p>读写打开文件：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">convenience</span> <span class="keyword">init</span>?(forUpdatingAtPath path: <span class="type">String</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">convenience</span> <span class="keyword">init</span>(forUpdating url: <span class="type">URL</span>) <span class="keyword">throws</span></span><br></pre></td></tr></table></figure>
+<p>当然，也可以使用fd来打开文件：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">public <span class="function"><span class="title">init</span><span class="params">(fileDescriptor fd: Int32, closeOnDealloc closeopt: Bool)</span></span></span><br><span class="line">public convenience <span class="function"><span class="title">init</span><span class="params">(fileDescriptor fd: Int32)</span></span></span><br></pre></td></tr></table></figure>
+<h4 id="读写文件">读写文件</h4><p>read：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">open <span class="func"><span class="keyword">func</span> <span class="title">readDataToEndOfFile</span><span class="params">()</span></span> -&gt; <span class="type">Data</span></span><br><span class="line">open <span class="func"><span class="keyword">func</span> <span class="title">readData</span><span class="params">(ofLength length: Int)</span></span> -&gt; <span class="type">Data</span></span><br></pre></td></tr></table></figure>
+<p>write：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">open <span class="func"><span class="keyword">func</span> <span class="title">write</span><span class="params">(<span class="number">_</span> data: Data)</span></span></span><br></pre></td></tr></table></figure>
+<p>seek：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">open <span class="func"><span class="keyword">func</span> <span class="title">seekToEndOfFile</span><span class="params">()</span></span> -&gt; <span class="type">UInt64</span></span><br><span class="line">open <span class="func"><span class="keyword">func</span> <span class="title">seek</span><span class="params">(toFileOffset offset: UInt64)</span></span></span><br></pre></td></tr></table></figure>
+<p>到这里关于文件的三种持久化方式就说完了，也许并不全面，但应该是比较常用的了，这些都是比较轻量的，后面会说到功能强大的<code>CoreData</code></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/NSUserDefaults/" rel="tag"># NSUserDefaults</a>
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+            <a href="/tags/持久化/" rel="tag"># 持久化</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/04/17/ios-persistence-sandbox/" rel="next" title="iOS持久化（一）：介绍">
+                <i class="fa fa-chevron-left"></i> iOS持久化（一）：介绍
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/image/avatar.jpg"
+               alt="tang07070" />
+          <p class="site-author-name" itemprop="name">tang07070</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#NSUserDefaults"><span class="nav-number">1.</span> <span class="nav-text">NSUserDefaults</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基础"><span class="nav-number">1.1.</span> <span class="nav-text">基础</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Domain"><span class="nav-number">1.2.</span> <span class="nav-text">Domain</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Argument_Domain"><span class="nav-number">1.2.1.</span> <span class="nav-text">Argument Domain</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Application_Domain"><span class="nav-number">1.2.2.</span> <span class="nav-text">Application Domain</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Global_Domain"><span class="nav-number">1.2.3.</span> <span class="nav-text">Global Domain</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Languages_Domains"><span class="nav-number">1.2.4.</span> <span class="nav-text">Languages Domains</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Registration_Domain"><span class="nav-number">1.2.5.</span> <span class="nav-text">Registration Domain</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#自定义Domain"><span class="nav-number">1.2.6.</span> <span class="nav-text">自定义Domain</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Suite"><span class="nav-number">1.3.</span> <span class="nav-text">Suite</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Property_List"><span class="nav-number">2.</span> <span class="nav-text">Property List</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#读取"><span class="nav-number">2.1.</span> <span class="nav-text">读取</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#保存"><span class="nav-number">2.2.</span> <span class="nav-text">保存</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Raw_File"><span class="nav-number">3.</span> <span class="nav-text">Raw File</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#FileHandle"><span class="nav-number">3.1.</span> <span class="nav-text">FileHandle</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#打开文件"><span class="nav-number">3.1.1.</span> <span class="nav-text">打开文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#读写文件"><span class="nav-number">3.1.2.</span> <span class="nav-text">读写文件</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-year"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">tang07070</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
